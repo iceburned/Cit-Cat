@@ -1,0 +1,48 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="list">
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 50%;
+        }
+
+        td, th {
+            border: 2px solid #dddddd;
+            text-align: left;
+            padding: 12px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+    <h2>Topics!</h2>
+    {% for topic in topics_context %}
+        <table>
+            <td><a href="{% url 'edit_topic' pk=subcategory_pk ek=topics_ek tk=topic.pk %}">{{ topic.title }}</a></td>
+            <td>{{ topic.content }}</td>
+            <td>{{ topic.date_created }}</td>
+        </table>
+    {% endfor %}
+    <button type="button">
+        <a href="{% url 'create_topic' pk=subcategory_pk ek=topics_ek %}">Create topic</a>
+    </button>
+
+    <button type="button">
+
+        <a href="{% url 'subcategory' pk=subcategory_pk %}">Back</a>
+    </button>
+
+
+</div>
+</body>
+</html>

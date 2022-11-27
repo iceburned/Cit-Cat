@@ -1,0 +1,1 @@
+A locale directory for project translations
