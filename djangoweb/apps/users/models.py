@@ -74,6 +74,7 @@ class AppUser(AbstractUser):
 
 class UserProfileModel(models.Model):
     AGE_MIN_VALUE = 12
+    SIGNATURE_MAX_LENGTH = 255
 
     user = models.OneToOneField(
         AppUser,
@@ -97,3 +98,9 @@ class UserProfileModel(models.Model):
     )
 
     avatar_pic = models.URLField()
+
+    signature = models.TextField(
+        max_length=SIGNATURE_MAX_LENGTH,
+        blank=True,
+        null=True,
+    )

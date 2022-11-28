@@ -4,8 +4,10 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
+from django.views.generic import DetailView
 
-from djangoweb.apps.users.forms import SignInForm
+from djangoweb.apps.users.forms import SignInForm, ProfileForm
+from djangoweb.apps.users.models import UserProfileModel
 
 User = get_user_model()
 
@@ -43,3 +45,14 @@ class SignOutBaseForm(LogoutView):
 class SignOutView(SignOutBaseForm):
     next_page = reverse_lazy('Index')
 
+
+class ProfileView(DetailView):
+    model = User
+    template_name = 'profile.html'
+    form_class = ProfileForm
+    # profile_model = UserProfileModel.objects.get('id')
+    #
+    # def get_context_data(self, **kwargs):
+    #     context = super(ProfileView, self).get_context_data()
+    #     context['user_profile'] = self.profile_model
+    #     return context
