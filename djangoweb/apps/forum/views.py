@@ -1,5 +1,6 @@
 from pathlib import Path
 
+from django.contrib.auth import get_user_model
 from django.urls import reverse
 from django.views.generic import ListView, DetailView, UpdateView, CreateView
 
@@ -9,6 +10,7 @@ from djangoweb.apps.forum.models import ForumCategory, ForumSubcategories, Forum
 from djangoweb.apps.utils.cat_pics import main_cat
 from djangoweb.apps.utils.dad_jokes import main as dad_jokes
 
+User = get_user_model()
 
 class ListPageBase(ListView):
     pass
@@ -34,6 +36,8 @@ class CategoryPage(ListPageBase):
         context = super(CategoryPage, self).get_context_data()
         context['joke'] = dad_jokes()
         context['cat_of_the_day'] = main_cat()
+        context['full_name'] = self.request.user.get_full_name()
+        context['user'] = self.request.user
         return context
 
 
@@ -42,11 +46,6 @@ class SubcategoryPage(ListPageBase):
     template_name = 'subcategory_page.html'
     context_object_name = "subcategory_context"
 
-    # def get(self, request, *args, **kwargs):
-    #     context = super().__init__()
-    #     a = 12
-    #     return context
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
         count_topic = ForumSubcategories.count_topics(self.kwargs.get('pk'))
@@ -54,6 +53,7 @@ class SubcategoryPage(ListPageBase):
         context['count_topics'] = count_topic
         context['last_topic'] = last_topic
         context['subcategory_pk'] = self.kwargs.get("pk")
+        context['joke'] = dad_jokes()
         return context
 
     def get_queryset(self):

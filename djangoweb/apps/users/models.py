@@ -31,6 +31,9 @@ class AppUser(AbstractUser):
     MAX_LEN_LAST_NAME = 30
     MIN_LEN_USERNAME = 2
     MAX_LEN_USERNAME = 30
+    AGE_MIN_VALUE = 12
+    SIGNATURE_MAX_LENGTH = 255
+    CITY_MAX_LENGTH = 30
 
     username = models.CharField(
         unique=True,
@@ -70,6 +73,46 @@ class AppUser(AbstractUser):
     email = models.EmailField(
         unique=True,
     )
+
+    gender = models.CharField(
+        choices=Gender.choices(),
+        max_length=Gender.max_len(),
+    )
+
+    age = models.IntegerField(
+        blank=True,
+        null=True,
+        validators=(
+            validators.MinValueValidator(AGE_MIN_VALUE),
+            validators.RegexValidator(
+                r"^\d+$",
+                message="Ensure this value contains only numbers."
+            ),
+        ),
+    )
+
+    avatar_pic = models.URLField(
+        blank=True,
+        null=True,
+    )
+
+    signature = models.TextField(
+        max_length=SIGNATURE_MAX_LENGTH,
+        blank=True,
+        null=True,
+    )
+
+    city = models.CharField(
+        max_length=CITY_MAX_LENGTH,
+        blank=True,
+        null=True,
+    )
+
+    def full_name(self):
+        if self.first_name and self.last_name:
+            return f"{self.first_name} {self.last_name}"
+        else:
+            return self.username
 
 
 class UserProfileModel(models.Model):
