@@ -75,6 +75,7 @@ class AppUser(AbstractUser):
 class UserProfileModel(models.Model):
     AGE_MIN_VALUE = 12
     SIGNATURE_MAX_LENGTH = 255
+    CITY_MAX_LENGTH = 30
 
     user = models.OneToOneField(
         AppUser,
@@ -101,6 +102,12 @@ class UserProfileModel(models.Model):
 
     signature = models.TextField(
         max_length=SIGNATURE_MAX_LENGTH,
+        blank=True,
+        null=True,
+    )
+
+    city = models.CharField(
+        max_length=CITY_MAX_LENGTH,
         blank=True,
         null=True,
     )
