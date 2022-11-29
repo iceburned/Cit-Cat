@@ -1,8 +1,10 @@
-# import urllib.request
-# import json
+import urllib.request
+import json
 #
 # def getResponse(url):
-#     operUrl = urllib.request.urlopen(url)
+#     hdr = {'Accept': 'text/html'}
+#     # operUrl = urllib.request.urlopen(url, )
+#     operUrl = urllib.request.urlopen(url, )
 #     jsonData = ''
 #     if(operUrl.getcode()==200):
 #         data = operUrl.read()
@@ -14,12 +16,13 @@
 #
 # def main():
 #
-#     urlData = "https://api.thecatapi.com/v1/images/search"
+#     urlData = "https://icanhazdadjoke.com/"
 #     jsonData = getResponse(urlData)
 #     # print the state id and state name corresponding
 #     # for i in jsonData["states"]:
 #     #     print(f'State Name:  {i["state"]["state_name"]} , State ID : {i["state"]["state_id"]}')
-#     print(jsonData[0]["url"])
+#     # print(jsonData[0]["url"])
+#     print(jsonData)
 #
 # if __name__ == '__main__':
 #     main()
@@ -63,3 +66,45 @@
 #             response['message'] = 'error'
 #             response['credentials'] = {}
 #         return Response(response)
+
+
+# from random import seed
+# import requests
+#
+# url = "https://www.gamefaqs.com"
+# session_obj = requests.Session()
+# response = session_obj.get(url, headers={"User-Agent": "Mozilla/5.0"})
+#
+# print(response.status_code)
+
+
+from urllib.request import Request, urlopen
+
+
+# req = Request('https://icanhazdadjoke.com/', headers={'User-Agent': 'Mozilla/5.0', 'Accept': 'text/plain'})
+# webpage = urlopen(req).read()
+# print(webpage)
+
+
+def getResponse(url):
+    hdr = {'User-Agent': 'Mozilla/5.0', 'Accept': 'text/plain'}
+    req_data = Request(url, headers=hdr)
+    if req_data:
+        data = urlopen(req_data).read()
+        return data
+    else:
+        print("Error receiving data")
+        return None
+
+
+def main():
+    url_data = "https://icanhazdadjoke.com/"
+    joke = getResponse(url_data).decode('UTF-8')
+    print(joke)
+
+
+if __name__ == '__main__':
+    main()
+
+
+

@@ -6,6 +6,8 @@ from django.views.generic import ListView, DetailView, UpdateView, CreateView
 
 from djangoweb.apps.forum.forms import TopicCreateForm, TopicEditForm
 from djangoweb.apps.forum.models import ForumCategory, ForumSubcategories, ForumTopic
+from djangoweb.apps.utils.cat_pics import main_cat
+from djangoweb.apps.utils.dad_jokes import main as dad_jokes
 
 
 class ListPageBase(ListView):
@@ -30,6 +32,8 @@ class CategoryPage(ListPageBase):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(CategoryPage, self).get_context_data()
+        context['joke'] = dad_jokes()
+        context['cat_of_the_day'] = main_cat()
         return context
 
 
