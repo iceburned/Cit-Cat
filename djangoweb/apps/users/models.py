@@ -108,6 +108,11 @@ class AppUser(AbstractUser):
         null=True,
     )
 
+    slug = models.SlugField(
+        unique=True,
+        editable=False,
+    )
+
     def full_name(self):
         if self.first_name and self.last_name:
             return f"{self.first_name} {self.last_name}"

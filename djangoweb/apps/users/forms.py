@@ -21,15 +21,15 @@ class ProfileForm(forms.ModelForm):
 
     class Meta:
 
-        model = UserProfileModel
+        model = User
         fields = '__all__'
 
-        widgets = {
-            'age': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'self.labels'}),
-            'gender': forms.SelectMultiple(attrs={'class': 'form-control'}),
-            'city': forms.TextInput(attrs={'class': 'form-control', }),
-            'signature': forms.Textarea(attrs={'class': 'card', }),
-
-        }
+        # widgets = {
+        #     'age': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'self.labels'}),
+        #     'gender': forms.SelectMultiple(attrs={'class': 'form-control'}),
+        #     'city': forms.TextInput(attrs={'class': 'form-control', }),
+        #     'signature': forms.Textarea(attrs={'class': 'card', }),
+        #
+        # }
 
 

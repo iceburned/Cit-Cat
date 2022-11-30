@@ -3,8 +3,6 @@ from django.core.validators import MinLengthValidator
 from django.db import models
 
 
-# from djangoweb.apps.users.models import AppUser
-
 User = get_user_model()
 
 
@@ -47,6 +45,11 @@ class ForumCategory(models.Model):
     def __str__(self):
         return self.title
 
+    slug = models.SlugField(
+        unique=True,
+        editable=False,
+    )
+
 
 class ForumSubcategories(models.Model):
     __TITLE_MAX_LENGTH = 50
@@ -79,8 +82,6 @@ class ForumSubcategories(models.Model):
         on_delete=models.CASCADE,
     )
 
-
-
     slug = models.SlugField(
         unique=True,
         editable=False,
@@ -96,39 +97,6 @@ class ForumSubcategories(models.Model):
 
     def __str__(self):
         return self.title
-
-
-# class ForumPost(models.Model):
-#     __TITLE_MAX_LENGTH = 50
-#     __TITLE_MIN_LENGTH = 3
-#     __CONTENT_MAX_LENGTH = 255
-#
-#     title = models.CharField(
-#
-#         max_length=__TITLE_MAX_LENGTH,
-#         blank=False,
-#         null=False,
-#         validators=(
-#             MinLengthValidator(
-#                 __TITLE_MIN_LENGTH),
-#         ),
-#     )
-#
-#     content = models.TextField(
-#         max_length=__CONTENT_MAX_LENGTH,
-#         blank=True,
-#         null=True,
-#     )
-#
-#     date_created = models.TimeField(
-#         auto_now=True,
-#     )
-#
-#     subcategory = models.ForeignKey(ForumSubcategories, on_delete=models.CASCADE)
-#     # users = models.ForeignKey(User, on_delete=models.CASCADE)
-#
-#     def __str__(self):
-#         return self.title
 
 
 class ForumTopic(models.Model):
@@ -157,10 +125,10 @@ class ForumTopic(models.Model):
         auto_now=True,
     )
 
-    # slug = models.SlugField(
-    #     unique=True,
-    #     editable=False,
-    # )
+    slug = models.SlugField(
+        unique=True,
+        editable=False,
+    )
 
     subcategory = models.ForeignKey(ForumSubcategories, on_delete=models.CASCADE)
     # users = models.ForeignKey(AppUser, on_delete=models.CASCADE)

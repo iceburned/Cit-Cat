@@ -54,6 +54,6 @@ class ProfileView(generic.UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super(ProfileView, self).get_context_data()
-        id_instance = self.kwargs['pk']
-        context['profile_model'] = UserProfileModel.objects.get(user_id=id_instance)
+        # id_instance = self.kwargs['pk']
+        # context['profile_model'] = UserProfileModel.objects.get(user_id=id_instance)
         return context
