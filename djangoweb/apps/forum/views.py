@@ -32,12 +32,17 @@ class CategoryPage(ListPageBase):
     model = ForumCategory
     template_name = 'category_page.html'
 
+    def user_name(self):
+        if self.request.user.is_anonymous:
+            return 'Anonymous'
+        else:
+            return self.request.user.get_full_name()
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(CategoryPage, self).get_context_data()
         context['joke'] = dad_jokes()
         context['cat_of_the_day'] = main_cat()
-        context['full_name'] = self.request.user.get_full_name()
+        context['full_name'] = self.user_name()
         context['user'] = self.request.user
         return context
 

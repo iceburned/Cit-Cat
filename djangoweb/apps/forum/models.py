@@ -2,6 +2,7 @@ from django.contrib.auth import get_user_model
 from django.core.validators import MinLengthValidator
 from django.db import models
 from django.urls import reverse
+from django.utils.text import slugify
 
 User = get_user_model()
 
@@ -39,12 +40,18 @@ class ForumCategory(models.Model):
 
     slug = models.SlugField(
         unique=True,
-        blank=False,
+        blank=True,
         null=False,
     )
 
     # def get_absolute_url(self):
     #     return reverse("category", kwargs={'slug': self.title})
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        if not self.slug:
+            self.slug = slugify(f"{self.title} - {self.id}")
+        return super().save(*args, **kwargs)
 
     def subcategories(self):
         return ForumSubcategories.objects.filter(
@@ -88,9 +95,15 @@ class ForumSubcategories(models.Model):
 
     slug = models.SlugField(
         unique=True,
-        blank=False,
+        blank=True,
         null=False,
     )
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        if not self.slug:
+            self.slug = slugify(f"{self.title} - {self.id}")
+        return super().save(*args, **kwargs)
 
     def get_absolute_url(self):
         return reverse("category", kwargs={'slug': self.title})
@@ -135,12 +148,18 @@ class ForumTopic(models.Model):
 
     slug = models.SlugField(
         unique=True,
-        blank=False,
+        blank=True,
         null=False,
     )
 
     subcategory = models.ForeignKey(ForumSubcategories, on_delete=models.CASCADE)
     # users = models.ForeignKey(AppUser, on_delete=models.CASCADE)
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        if not self.slug:
+            self.slug = slugify(f"{self.title} - {self.id}")
+        return super().save(*args, **kwargs)
 
     def __str__(self):
         return self.title

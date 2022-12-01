@@ -116,8 +116,10 @@ class AppUser(AbstractUser):
     def full_name(self):
         if self.first_name and self.last_name:
             return f"{self.first_name} {self.last_name}"
-        else:
+        elif self.username:
             return self.username
+        else:
+            return "Anonymous"
 
 
 class UserProfileModel(models.Model):
