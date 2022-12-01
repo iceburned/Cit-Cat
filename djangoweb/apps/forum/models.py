@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.core.validators import MinLengthValidator
 from django.db import models
-
+from django.urls import reverse
 
 User = get_user_model()
 
@@ -32,23 +32,26 @@ class ForumCategory(models.Model):
         auto_now=True,
     )
 
-    def subcategories(self):
-        return ForumSubcategories.objects.filter(
-            category_id=self.id
-        ).order_by('date_created').reverse()[:5]
-
     logo = models.ImageField(
         default='',
         upload_to='forum/static_images',
     )
 
-    def __str__(self):
-        return self.title
-
     slug = models.SlugField(
         unique=True,
         editable=False,
     )
+
+    # def get_absolute_url(self):
+    #     return reverse("category", kwargs={'slug': self.title})
+
+    def subcategories(self):
+        return ForumSubcategories.objects.filter(
+            category_id=self.id
+        ).order_by('date_created').reverse()[:5]
+
+    def __str__(self):
+        return self.title
 
 
 class ForumSubcategories(models.Model):
@@ -85,7 +88,13 @@ class ForumSubcategories(models.Model):
     slug = models.SlugField(
         unique=True,
         editable=False,
+        null=True,
+        blank=True,
+
     )
+
+    def get_absolute_url(self):
+        return reverse("category", kwargs={'slug': self.title})
 
     def count_topics(self):
         count_topics = ForumTopic.objects.filter(subcategory_id=self).count()
@@ -128,6 +137,9 @@ class ForumTopic(models.Model):
     slug = models.SlugField(
         unique=True,
         editable=False,
+        null=True,
+        blank=True,
+
     )
 
     subcategory = models.ForeignKey(ForumSubcategories, on_delete=models.CASCADE)
@@ -135,3 +147,6 @@ class ForumTopic(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse("category", kwargs={'slug': self.title})
