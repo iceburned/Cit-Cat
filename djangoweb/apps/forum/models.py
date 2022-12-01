@@ -39,7 +39,8 @@ class ForumCategory(models.Model):
 
     slug = models.SlugField(
         unique=True,
-        editable=False,
+        blank=False,
+        null=False,
     )
 
     # def get_absolute_url(self):
@@ -87,10 +88,8 @@ class ForumSubcategories(models.Model):
 
     slug = models.SlugField(
         unique=True,
-        editable=False,
-        null=True,
-        blank=True,
-
+        blank=False,
+        null=False,
     )
 
     def get_absolute_url(self):
@@ -136,10 +135,8 @@ class ForumTopic(models.Model):
 
     slug = models.SlugField(
         unique=True,
-        editable=False,
-        null=True,
-        blank=True,
-
+        blank=False,
+        null=False,
     )
 
     subcategory = models.ForeignKey(ForumSubcategories, on_delete=models.CASCADE)
