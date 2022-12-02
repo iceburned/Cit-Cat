@@ -1,5 +1,6 @@
 from pathlib import Path
 
+
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 from django.views.generic import ListView, DetailView, UpdateView, CreateView
@@ -32,6 +33,12 @@ class CategoryPage(ListPageBase):
     model = ForumCategory
     template_name = 'category_page.html'
 
+    # def avatar(self):
+    #     if self.request.user.is_anonymous or not self.request.user.objects.get('avatar_pic'):
+    #         return open('static/users/img/avatars_icon.png', "rb").read()
+    #     else:
+    #         return self.request.user.objects.get('avatar_pic')
+
     def user_name(self):
         if self.request.user.is_anonymous:
             return 'Anonymous'
@@ -44,6 +51,7 @@ class CategoryPage(ListPageBase):
         context['cat_of_the_day'] = main_cat()
         context['full_name'] = self.user_name()
         context['user'] = self.request.user
+        # context['avatar'] = self.avatar()
         return context
 
 

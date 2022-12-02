@@ -46,14 +46,22 @@ class SignOutView(SignOutBaseForm):
     next_page = reverse_lazy('Index')
 
 
+
+
 class ProfileView(generic.UpdateView):
     model = User
     template_name = 'profile.html'
     form_class = ProfileForm
     context_object_name = 'profile'
 
+
+
+
+
     def get_context_data(self, **kwargs):
         context = super(ProfileView, self).get_context_data()
+
         # id_instance = self.kwargs['pk']
         # context['profile_model'] = UserProfileModel.objects.get(user_id=id_instance)
         return context
+

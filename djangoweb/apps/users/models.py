@@ -1,3 +1,4 @@
+
 from enum import Enum
 
 from django.contrib.auth import get_user_model
@@ -91,7 +92,8 @@ class AppUser(AbstractUser):
         ),
     )
 
-    avatar_pic = models.URLField(
+    avatar_pic = models.ImageField(
+        default='/static/users/img/avatars_icon.png',
         blank=True,
         null=True,
     )

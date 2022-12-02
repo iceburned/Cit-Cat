@@ -99,14 +99,14 @@ class ForumSubcategories(models.Model):
         null=False,
     )
 
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
-        if not self.slug:
-            self.slug = slugify(f"{self.title} - {self.id}")
-        return super().save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     super().save(*args, **kwargs)
+    #     if not self.slug:
+    #         self.slug = slugify(f"{self.title} - {self.id}")
+    #     return super().save(*args, **kwargs)
 
-    def get_absolute_url(self):
-        return reverse("category", kwargs={'slug': self.title})
+    # def get_absolute_url(self):
+    #     return reverse("category", kwargs={'slug': self.title})
 
     def count_topics(self):
         count_topics = ForumTopic.objects.filter(subcategory_id=self).count()
