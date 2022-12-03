@@ -2,6 +2,7 @@ from pathlib import Path
 
 
 from django.contrib.auth import get_user_model
+from django.db.models import Q
 from django.urls import reverse
 from django.views.generic import ListView, DetailView, UpdateView, CreateView
 
@@ -132,3 +133,18 @@ class CreateTopicPage(CreatePageBase):
         return reverse('topics', kwargs={'pk': self.kwargs['pk'], 'ek': self.kwargs['ek']})
 
 
+class SearchResultView(ListPageBase):
+    model = ForumSubcategories
+    template_name = 'search_subcategories.html'
+
+    def get_queryset(self):
+        query = self.request.GET.get("q")
+        object_list = ForumSubcategories.objects.filter(
+            Q(title__icontains=query) & Q(category_id=self.kwargs["pk"])
+        )
+        return object_list
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(SearchResultView, self).get_context_data()
+        context['query_search'] = self.request.GET.get('q')
+        return context

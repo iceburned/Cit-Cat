@@ -4,26 +4,17 @@
 
                 <div class="container-fluid">
 
-                    <h3 class="text-dark mb-4">Subcategories</h3>
+                    <h3 class="text-dark mb-4">Search for "{{ query_search }}" returns:</h3>
 
                     <div class="card shadow">
-                        <div class="card-header py-3">
+{#                        <div class="card-header py-3">#}
 {#                            <p class="text-primary m-0 fw-bold"><a href="{% url 'topics' sub.pk %}">{{ sub.title }}</a></p>#}
-                        </div>
+{#                        </div>#}
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-6 text-nowrap">
                                 </div>
-                                <div class="col-md-6">
-                                    <form action="{% url 'search' subcategory_pk %}" method="get">
-                                         <div class="text-md-end dataTables_filter" id="dataTable_filter"><label class="form-label"><input name="q" type="search" class="form-control form-control-sm" aria-controls="dataTable" placeholder="Search"></label></div>
-
-{#                                        <input name="q" type="text" placeholder="Search...">#}
-
-                                    </form>
-{#                                    <div class="text-md-end dataTables_filter" id="dataTable_filter"><label class="form-label"><input type="search" class="form-control form-control-sm" aria-controls="dataTable" placeholder="Search"></label></div>#}
-                                </div>
-                            </div>
+                  </div>
                             <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
                                 <table class="table my-0" id="dataTable">
                                     <thead>
@@ -39,7 +30,7 @@
                                     <tbody>
                                         <tr>
                                             <td><img class="rounded-circle me-2" width="30" height="30" src="#"></td>
-                                            <td><div class="title"><a href="{% url 'topics' pk=subcategory_pk ek=sub.pk  %}">{{ sub.title }}</a></div></td>
+                                            <td><div class="title"><a href="">{{ sub.title }}</a></div></td>
                                             <td>{{ sub.date_created }}</td>
                                             <td>{{ sub.count_topics }}</td>
                                             <td>{{ sub.last_topic }}</td>
