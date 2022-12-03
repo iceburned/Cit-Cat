@@ -1,7 +1,6 @@
-from django.urls import path, include
+from django.urls import path
 
-from djangoweb.apps.forum.views import CategoryPage, SubcategoryPage, TopicsPage, CreateTopicPage, EditTopicPage, \
-    SearchResultView
+from djangoweb.apps.forum.views import *
 
 urlpatterns = (
     path('', CategoryPage.as_view(), name="category"),
@@ -10,4 +9,5 @@ urlpatterns = (
     path('sub/<int:pk>/topics/<int:ek>/edit/<int:tk>/', EditTopicPage.as_view(), name='edit_topic'),
     path('sub/<int:pk>/topics/<int:ek>/create/', CreateTopicPage.as_view(), name='create_topic'),
     path('sub/<int:pk>/search/', SearchResultView.as_view(), name="search"),
+    path('sub/<int:pk>/topics/<int:ek>/search/', SearchResultViewTopics.as_view(), name="search"),
 )

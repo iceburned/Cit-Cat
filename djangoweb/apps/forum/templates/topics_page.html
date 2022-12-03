@@ -1,48 +1,119 @@
+{##}
+{##}
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <title>Title</title>#}
+{#</head>#}
+{#<body>#}
+{#<div id="list">#}
+{#    <style>#}
+{#        table {#}
+{#            font-family: arial, sans-serif;#}
+{#            border-collapse: collapse;#}
+{#            width: 50%;#}
+{#        }#}
+{##}
+{#        td, th {#}
+{#            border: 2px solid #dddddd;#}
+{#            text-align: left;#}
+{#            padding: 12px;#}
+{#        }#}
+{##}
+{#        tr:nth-child(even) {#}
+{#            background-color: #dddddd;#}
+{#        }#}
+{#    </style>#}
+{#    <h2>Topics!</h2>#}
 
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<div id="list">
-    <style>
-        table {
-            font-family: arial, sans-serif;
-            border-collapse: collapse;
-            width: 50%;
-        }
-
-        td, th {
-            border: 2px solid #dddddd;
-            text-align: left;
-            padding: 12px;
-        }
-
-        tr:nth-child(even) {
-            background-color: #dddddd;
-        }
-    </style>
-    <h2>Topics!</h2>
-    {% for topic in topics_context %}
-        <table>
-            <td><a href="{% url 'edit_topic' pk=subcategory_pk ek=topics_ek tk=topic.pk %}">{{ topic.title }}</a></td>
-            <td>{{ topic.content }}</td>
-            <td>{{ topic.date_created }}</td>
-        </table>
-    {% endfor %}
-    <button type="button">
-        <a href="{% url 'create_topic' pk=subcategory_pk ek=topics_ek %}">Create topic</a>
-    </button>
-
-    <button type="button">
-
-        <a href="{% url 'subcategory' pk=subcategory_pk %}">Back</a>
-    </button>
+{#    {% for topic in topics_context %}#}
+{#        <table>#}
+{#            <td><a href="{% url 'edit_topic' pk=subcategory_pk ek=topics_ek tk=topic.pk %}">{{ topic.title }}</a></td>#}
+{#            <td>{{ topic.content }}</td>#}
+{#            <td>{{ topic.date_created }}</td>#}
+{#        </table>#}
+{#    {% endfor %}#}
+{#    <button type="button">#}
+{#        <a href="{% url 'create_topic' pk=subcategory_pk ek=topics_ek %}">Create topic</a>#}
+{#    </button>#}
+{##}
+{#    <button type="button">#}
+{##}
+{#        <a href="{% url 'subcategory' pk=subcategory_pk %}">Back</a>#}
+{#    </button>#}
+{##}
+{##}
+{#</div>#}
+{#</body>#}
+{#</html>#}
 
 
-</div>
-</body>
-</html>
+
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+                <div class="container-fluid">
+
+                    <h3 class="text-dark mb-4">Topics</h3>
+
+                    <div class="card shadow">
+                        <div class="card-header py-3">
+{#                            <p class="text-primary m-0 fw-bold"><a href="{% url 'topics' sub.pk %}">{{ sub.title }}</a></p>#}
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6 text-nowrap">
+                                </div>
+                                <div class="col-md-6">
+                                    <form action="{% url 'search' subcategory_pk %}" method="get">
+                                         <div class="text-md-end dataTables_filter" id="dataTable_filter"><label class="form-label"><input name="q" type="search" class="form-control form-control-sm" aria-controls="dataTable" placeholder="Search"></label></div>
+
+{#                                        <input name="q" type="text" placeholder="Search...">#}
+
+                                    </form>
+{#                                    <div class="text-md-end dataTables_filter" id="dataTable_filter"><label class="form-label"><input type="search" class="form-control form-control-sm" aria-controls="dataTable" placeholder="Search"></label></div>#}
+                                </div>
+                            </div>
+                            <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                                <table class="table my-0" id="dataTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Logo</th>
+                                            <th>Title</th>
+                                            <th>Created</th>
+                                            <th>Count topics</th>
+                                            <th>Last topic</th>
+                                        </tr>
+                                    </thead>
+                                    {% for topic in topics_context %}
+                                    <tbody>
+                                        <tr>
+                                            <td><img class="rounded-circle me-2" width="30" height="30" src="#"></td>
+                                            <td><div class="title"><a href="{% url 'edit_topic' pk=subcategory_pk ek=topics_ek tk=topic.pk %}">{{ topic.title }}</a></div></td>
+                                            <td>{{ topic.date_created }}</td>
+                                            <td>{{ topic.count_topics }}</td>
+                                            <td>{{ topic.last_topic }}</td>
+                                            <td>{{ topic.pk }}</td>
+
+                                        </tr>
+
+                                    </tbody>
+                                    {% endfor %}
+                                    <tfoot>
+                                        <tr>
+                                            <td><strong>Logo</strong></td>
+                                            <td><strong>Title</strong></td>
+                                            <td><strong>Created</strong></td>
+                                            <td><strong>Count topics</strong></td>
+                                            <td><strong>Last topic</strong></td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endblock %}

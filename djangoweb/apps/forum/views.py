@@ -14,8 +14,14 @@ from djangoweb.apps.utils.dad_jokes import main as dad_jokes
 
 User = get_user_model()
 
+
 class ListPageBase(ListView):
-    pass
+
+    def user_name(self):
+        if self.request.user.is_anonymous:
+            return 'Anonymous'
+        else:
+            return self.request.user.get_full_name()
 
 
 class DetailsPageBase(DetailView):
@@ -40,11 +46,11 @@ class CategoryPage(ListPageBase):
     #     else:
     #         return self.request.user.objects.get('avatar_pic')
 
-    def user_name(self):
-        if self.request.user.is_anonymous:
-            return 'Anonymous'
-        else:
-            return self.request.user.get_full_name()
+    # def user_name(self):
+    #     if self.request.user.is_anonymous:
+    #         return 'Anonymous'
+    #     else:
+    #         return self.request.user.get_full_name()
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(CategoryPage, self).get_context_data()
@@ -69,6 +75,7 @@ class SubcategoryPage(ListPageBase):
         context['last_topic'] = last_topic
         context['subcategory_pk'] = self.kwargs.get("pk")
         context['joke'] = dad_jokes()
+        context['full_name'] = self.user_name()
         return context
 
     def get_queryset(self):
@@ -102,6 +109,8 @@ class TopicsPage(ListPageBase):
         context['topic_id'] = self.kwargs['ek']
         context['subcategory_pk'] = self.kwargs['pk']
         context['topics_ek'] = self.kwargs['ek']
+        context['joke'] = dad_jokes()
+        context['full_name'] = self.user_name()
         return context
 
 
@@ -147,4 +156,27 @@ class SearchResultView(ListPageBase):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(SearchResultView, self).get_context_data()
         context['query_search'] = self.request.GET.get('q')
+        context['joke'] = dad_jokes()
+        context['full_name'] = self.user_name()
+        context['user'] = self.request.user
+        return context
+
+
+class SearchResultViewTopics(ListPageBase):
+    model = ForumTopic
+    template_name = 'search_topics.html'
+
+    def get_queryset(self):
+        query = self.request.GET.get("q")
+        object_list = ForumTopic.objects.filter(
+            Q(title__icontains=query) & Q(category_id=self.kwargs["pk"])
+        )
+        return object_list
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(SearchResultViewTopics, self).get_context_data()
+        context['query_search'] = self.request.GET.get('q')
+        context['joke'] = dad_jokes()
+        context['full_name'] = self.user_name()
+        context['user'] = self.request.user
         return context
