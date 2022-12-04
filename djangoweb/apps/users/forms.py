@@ -10,7 +10,12 @@ class SignInForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = '__all__'
+        fields = ('username', 'password',)
+
+        # widgets = {
+        #     'username': forms.TextInput(attrs={'class': 'form-control form-control-user'},),
+        #     'password': forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'password'},),
+        # }
 
 
 class ProfileForm(forms.ModelForm):
