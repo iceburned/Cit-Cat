@@ -9,8 +9,11 @@ from django.views.generic import ListView, DetailView, UpdateView, CreateView
 
 from djangoweb.apps.forum.forms import TopicCreateForm, TopicEditForm
 from djangoweb.apps.forum.models import ForumCategory, ForumSubcategories, ForumTopic
+from djangoweb.apps.users.tasks import search_in_subcategory
 from djangoweb.apps.utils.cat_pics import main_cat
 from djangoweb.apps.utils.dad_jokes import main as dad_jokes
+from djangoweb.services.ses import SESService
+from djangoweb.services.sqs import SQSService
 
 User = get_user_model()
 
@@ -148,9 +151,16 @@ class SearchResultView(ListPageBase):
 
     def get_queryset(self):
         query = self.request.GET.get("q")
+        cat_id = self.kwargs["pk"]
         object_list = ForumSubcategories.objects.filter(
             Q(title__icontains=query) & Q(category_id=self.kwargs["pk"])
         )
+        # a = 'ice_flame@abv.bg'
+        # try:
+        #     SESService().send_email(a)
+        # except Exception as ex:
+        #     a = 1
+        # search_in_subcategory.delay(a)
         return object_list
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -159,6 +169,9 @@ class SearchResultView(ListPageBase):
         context['joke'] = dad_jokes()
         context['full_name'] = self.user_name()
         context['user'] = self.request.user
+        a = 'ice_flame@abv.bg'
+        SQSService().send_message(a)
+
         return context
 
 

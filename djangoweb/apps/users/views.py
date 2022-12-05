@@ -29,8 +29,6 @@ class RegisterUserView(generic.CreateView):
     success_url = reverse_lazy('Index')
 
 
-
-
 class SignInBaseForm(LoginView):
     pass
 
