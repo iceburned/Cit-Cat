@@ -29,6 +29,8 @@ class RegisterUserView(generic.CreateView):
     success_url = reverse_lazy('Index')
 
 
+
+
 class SignInBaseForm(LoginView):
     pass
 
@@ -64,4 +66,8 @@ class ProfileView(generic.UpdateView):
         # id_instance = self.kwargs['pk']
         # context['profile_model'] = UserProfileModel.objects.get(user_id=id_instance)
         return context
+
+
+def send_email_to_new_users():
+    pass
 
