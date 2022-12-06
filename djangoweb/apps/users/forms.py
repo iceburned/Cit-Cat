@@ -27,7 +27,7 @@ class ProfileForm(forms.ModelForm):
     class Meta:
 
         model = User
-        fields = '__all__'
+        fields = 'username', 'email', 'first_name', 'last_name', 'age', 'city', 'gender', 'avatar_pic'
 
         # widgets = {
         #     'age': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'self.labels'}),

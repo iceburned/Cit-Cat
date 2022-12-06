@@ -6,6 +6,7 @@ from django.contrib.auth.models import AbstractUser
 from django.core import validators
 from django.db import models
 
+
 # User = get_user_model()
 
 
@@ -93,7 +94,7 @@ class AppUser(AbstractUser):
     )
 
     avatar_pic = models.ImageField(
-        default='/static/users/img/avatars_icon.png',
+        default='/media/avatars_icon.png',
         blank=True,
         null=True,
     )
@@ -122,6 +123,12 @@ class AppUser(AbstractUser):
             return self.username
         else:
             return "Anonymous"
+
+    def avatar(self):
+        if self.avatar_pic and hasattr(self.avatar_pic, 'url'):
+            return self.avatar_pic.url
+        else:
+            return '/media/avatars_icon.png'
 
 
 class UserProfileModel(models.Model):
