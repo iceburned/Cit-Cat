@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'bootstrap5',
     'rest_framework',
     'widget_tweaks',
+    'django_celery_results',
 ]
 
 MIDDLEWARE = [

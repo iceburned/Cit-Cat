@@ -9,6 +9,7 @@ from django.views.generic import ListView, DetailView, UpdateView, CreateView
 
 from djangoweb.apps.forum.forms import TopicCreateForm, TopicEditForm
 from djangoweb.apps.forum.models import ForumCategory, ForumSubcategories, ForumTopic
+from djangoweb.apps.forum.tasks import search_in_cat_api
 from djangoweb.apps.users.tasks import search_in_subcategory
 from djangoweb.apps.utils.cat_pics import main_cat
 from djangoweb.apps.utils.dad_jokes import main as dad_jokes
@@ -41,7 +42,7 @@ class CreatePageBase(CreateView):
 
 class CategoryPage(ListPageBase):
     model = ForumCategory
-    template_name = 'category_page.html'
+    template_name = 'index.html'
 
     # def avatar(self):
     #     if self.request.user.is_anonymous or not self.request.user.objects.get('avatar_pic'):
@@ -58,7 +59,12 @@ class CategoryPage(ListPageBase):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(CategoryPage, self).get_context_data()
         context['joke'] = dad_jokes()
-        context['cat_of_the_day'] = main_cat()
+        context['cat_of_the_day'] = search_in_cat_api()
+        context['cat_of_the_day1'] = search_in_cat_api()
+        context['cat_of_the_day2'] = search_in_cat_api()
+        context['cat_of_the_day3'] = search_in_cat_api()
+        context['cat_of_the_day4'] = search_in_cat_api()
+        context['cat_of_the_day5'] = search_in_cat_api()
         context['full_name'] = self.user_name()
         context['user'] = self.request.user
         # context['avatar'] = self.avatar()
