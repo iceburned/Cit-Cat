@@ -13,8 +13,8 @@ class SignInForm(forms.ModelForm):
         fields = ('username', 'password',)
 
         # widgets = {
-        #     'username': forms.TextInput(attrs={'class': 'form-control form-control-user'},),
-        #     'password': forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'password'},),
+        #     'username': forms.TextInput(attrs={'class': 'u-border-2 u-border-grey-10 u-grey-10 u-input u-input-rectangle u-input-1'},),
+        #     'password': forms.PasswordInput(attrs={'class': 'u-border-2 u-border-grey-10 u-grey-10 u-input u-input-rectangle u-input-2'},),
         # }
 
 

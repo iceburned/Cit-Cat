@@ -81,7 +81,7 @@ class ProfileView(generic.UpdateView):
         # context['profile_model'] = UserProfileModel.objects.get(user_id=id_instance)
         # return context
 
-
-def send_email_to_new_users():
-    pass
+#
+# def send_email_to_new_users():
+#     pass
 

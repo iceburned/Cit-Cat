@@ -3,11 +3,11 @@ from pathlib import Path
 
 from django.contrib.auth import get_user_model
 from django.db.models import Q
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.views.generic import ListView, DetailView, UpdateView, CreateView
 
 
-from djangoweb.apps.forum.forms import TopicCreateForm, TopicEditForm
+from djangoweb.apps.forum.forms import TopicCreateForm, TopicEditForm, SubcategoryCreateForm, SubcategoryEditForm
 from djangoweb.apps.forum.models import ForumCategory, ForumSubcategories, ForumTopic
 from djangoweb.apps.forum.tasks import search_in_cat_api
 from djangoweb.apps.users.tasks import search_in_subcategory
@@ -16,7 +16,7 @@ from djangoweb.apps.utils.dad_jokes import main as dad_jokes
 from djangoweb.services.ses import SESService
 from djangoweb.services.sqs import SQSService
 
-User = get_user_model()
+
 
 
 class ListPageBase(ListView):
@@ -98,6 +98,40 @@ class SubcategoryPage(ListPageBase):
             return queryset.none()
 
 
+class SubcategoryCreate(CreatePageBase):
+    model = ForumSubcategories
+    template_name = 'subcategory_create.html'
+    form_class = SubcategoryCreateForm
+    success_url = reverse_lazy('subcategory')
+
+    def get_initial(self):
+        initial = super(SubcategoryCreate, self).get_initial()
+        initial['category'] = ForumSubcategories.objects.get(pk=self.kwargs['pk'])
+        return initial
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        context['subcategory_pk'] = self.kwargs.get("pk")
+        context['category_id'] = self.kwargs.get("pk")
+        return context
+
+
+class SubcategoryEdit(EditPageBase):
+    model = ForumSubcategories
+    template_name = 'subcategory_create.html'
+    form_class = SubcategoryEditForm
+    success_url = reverse_lazy('category')
+
+    pk_url_kwarg = 'ek'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        context['subcategory_pk'] = self.kwargs.get("pk")
+        context['topics_ek'] = self.kwargs['ek']
+        a = 1
+        return context
+
+
 class TopicsPage(ListPageBase):
     model = ForumTopic
     template_name = 'topics_page.html'
@@ -175,8 +209,6 @@ class SearchResultView(ListPageBase):
         context['joke'] = dad_jokes()
         context['full_name'] = self.user_name()
         context['user'] = self.request.user
-        a = 'ice_flame@abv.bg'
-        SQSService().send_message(a)
 
         return context
 

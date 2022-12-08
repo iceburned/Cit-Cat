@@ -6,7 +6,7 @@ UserModel = get_user_model()
 
 @admin.register(UserModel)
 class UserAdmins(admin.ModelAdmin):
-    list_display = ('username', 'age', 'slug')
+    list_display = ('username', 'age')
 
 
 

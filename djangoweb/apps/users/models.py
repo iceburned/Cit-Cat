@@ -111,10 +111,10 @@ class AppUser(AbstractUser):
         null=True,
     )
 
-    slug = models.SlugField(
-        unique=True,
-        editable=False,
-    )
+    # slug = models.SlugField(
+    #     unique=True,
+    #     editable=False,
+    # )
 
     def full_name(self):
         if self.first_name and self.last_name:
