@@ -6,8 +6,8 @@ from django.urls import reverse_lazy
 from django.views import generic
 
 
-from djangoweb.apps.users.forms import SignInForm, ProfileForm
-from djangoweb.apps.users.models import UserProfileModel
+from djangoweb.apps.users.forms import SignInForm, ProfileForm, AboutPageForm
+from djangoweb.apps.users.models import UserProfileModel, AboutData
 
 User = get_user_model()
 
@@ -35,7 +35,7 @@ class SignInBaseForm(LoginView):
 
 class SignInView(SignInBaseForm):
     template_name = 'sign-in.html'
-    success_url = reverse_lazy('Index')
+    success_url = reverse_lazy('category')
 
 
 class SignOutBaseForm(LogoutView):
@@ -43,9 +43,7 @@ class SignOutBaseForm(LogoutView):
 
 
 class SignOutView(SignOutBaseForm):
-    next_page = reverse_lazy('Index')
-
-
+    next_page = reverse_lazy('category')
 
 
 class ProfileView(generic.UpdateView):
@@ -84,4 +82,11 @@ class ProfileView(generic.UpdateView):
 #
 # def send_email_to_new_users():
 #     pass
+
+class AboutPage(generic.CreateView):
+    model = AboutData
+    template_name = 'about_page.html'
+    form_class = AboutPageForm
+    success_url = reverse_lazy('category')
+
 

@@ -77,18 +77,19 @@
           <div class="u-container-layout u-valign-top u-container-layout-1"><span class="u-file-icon u-icon u-icon-1"><img src="{% static 'users/images/7399de1107c7f8cd95591f3755c1e07a.jpg' %}" alt=""></span>
             <h2 class="u-text u-text-body-alt-color u-text-default u-text-1">Member Login</h2>
             <div class="u-form u-login-control u-form-1">
-              <form action="#" class="u-clearfix u-form-custom-backend u-form-spacing-10 u-form-vertical u-inner-form" source="custom" name="form" style="padding: 0px;">
+              <form method="post" action="#" class="u-clearfix u-form-custom-backend u-form-spacing-10 u-form-vertical u-inner-form" source="custom" name="form" style="padding: 0px;">
 
                 <div class="u-form-group u-form-name">
                   <label for="username-a30d" class="u-label u-text-grey-5 u-label-1">Username *</label>
 {#                  <input type="text" placeholder="Enter your Username" id="username-a30d" name="username" class="u-border-2 u-border-grey-10 u-grey-10 u-input u-input-rectangle u-input-1" required="">#}
 {#                  <input type="text" placeholder="Enter your Username" id="username-a30d" name="username" class="u-border-2 u-border-grey-10 u-grey-10 u-input u-input-rectangle u-input-1" required="">#}
                     {{ form.as_p }}
+                    {% csrf_token %}
                 </div>
                 <div class="u-form-group u-form-password">
-                  <label for="password-a30d" class="u-label u-text-grey-5 u-label-2">Password *</label>
-                  <input type="text" placeholder="Enter your Password" id="password-a30d" name="password" class="u-border-2 u-border-grey-10 u-grey-10 u-input u-input-rectangle u-input-2" required="">
-                </div>
+{#                  <label for="password-a30d" class="u-label u-text-grey-5 u-label-2">Password *</label>#}
+{#                  <input type="text" placeholder="Enter your Password" id="password-a30d" name="password" class="u-border-2 u-border-grey-10 u-grey-10 u-input u-input-rectangle u-input-2" required="">#}
+{#                </div>#}
 {#                <div class="u-form-checkbox u-form-group">#}
 {#                  <input type="checkbox" id="checkbox-a30d" name="remember" value="On">#}
 {#                  <label for="checkbox-a30d" class="u-label u-text-grey-5 u-label-3">Remember me</label>#}

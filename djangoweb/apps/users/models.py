@@ -170,3 +170,25 @@ class UserProfileModel(models.Model):
         blank=True,
         null=True,
     )
+
+
+class AboutData(models.Model):
+    MAX_NAME_LENGTH = 50
+    MAX_MESSAGE_LENGTH = 255
+
+    name = models.CharField(
+        max_length=MAX_NAME_LENGTH,
+        blank=False,
+        null=False,
+    )
+
+    email = models.EmailField(
+        blank=False,
+        null=False,
+    )
+
+    message = models.TextField(
+        max_length=MAX_MESSAGE_LENGTH,
+        blank=False,
+        null=False,
+    )

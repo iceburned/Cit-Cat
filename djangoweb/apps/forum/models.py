@@ -151,7 +151,7 @@ class ForumTopic(models.Model):
         blank=True,
         null=False,
     )
-
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     subcategory = models.ForeignKey(ForumSubcategories, on_delete=models.CASCADE)
     # users = models.ForeignKey(AppUser, on_delete=models.CASCADE)
 
@@ -166,3 +166,5 @@ class ForumTopic(models.Model):
 
     def get_absolute_url(self):
         return reverse("category", kwargs={'slug': self.title})
+
+

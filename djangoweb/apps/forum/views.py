@@ -2,6 +2,7 @@ from pathlib import Path
 
 
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Permission, Group
 from django.db.models import Q
 from django.urls import reverse, reverse_lazy
 from django.views.generic import ListView, DetailView, UpdateView, CreateView
@@ -11,6 +12,7 @@ from djangoweb.apps.forum.forms import TopicCreateForm, TopicEditForm, Subcatego
     CategoryCreateForm, CategoryEditForm
 from djangoweb.apps.forum.models import ForumCategory, ForumSubcategories, ForumTopic
 from djangoweb.apps.forum.tasks import search_in_cat_api
+from djangoweb.apps.users.models import AppUser
 from djangoweb.apps.users.tasks import search_in_subcategory
 from djangoweb.apps.utils.cat_pics import main_cat
 from djangoweb.apps.utils.dad_jokes import main as dad_jokes
@@ -58,16 +60,25 @@ class CategoryPage(ListPageBase):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(CategoryPage, self).get_context_data()
         context['joke'] = dad_jokes()
-        context['cat_of_the_day'] = search_in_cat_api()
-        context['cat_of_the_day1'] = search_in_cat_api()
-        context['cat_of_the_day2'] = search_in_cat_api()
-        context['cat_of_the_day3'] = search_in_cat_api()
-        context['cat_of_the_day4'] = search_in_cat_api()
-        context['cat_of_the_day5'] = search_in_cat_api()
+        # context['cat_of_the_day'] = search_in_cat_api()
+        # context['cat_of_the_day1'] = search_in_cat_api()
+        # context['cat_of_the_day2'] = search_in_cat_api()
+        # context['cat_of_the_day3'] = search_in_cat_api()
+        # context['cat_of_the_day4'] = search_in_cat_api()
+        # context['cat_of_the_day5'] = search_in_cat_api()
         context['full_name'] = self.user_name()
         context['user'] = self.request.user
+        context['search_flag'] = False
+        context['group_admin'] = self.group_privileges()
         # context['avatar'] = self.avatar()
         return context
+
+    def group_privileges(self):
+        current_user = self.request.user
+        user_groups = current_user.groups
+        if user_groups.filter(name='admins'):
+            return True
+        return False
 
 
 class CategoryPageCreate(CreatePageBase):
@@ -98,6 +109,9 @@ class SubcategoryPage(ListPageBase):
         context['subcategory_pk'] = self.kwargs.get("pk")
         context['joke'] = dad_jokes()
         context['full_name'] = self.user_name()
+        context['group_admin'] = self.group_privileges('admins')
+        context['group_mods'] = self.group_privileges('mods')
+
         return context
 
     def get_queryset(self):
@@ -109,6 +123,13 @@ class SubcategoryPage(ListPageBase):
             return queryset
         else:
             return queryset.none()
+
+    def group_privileges(self, value):
+        current_user = self.request.user
+        user_groups = current_user.groups
+        if user_groups.filter(name=value):
+            return True
+        return False
 
 
 class SubcategoryCreate(CreatePageBase):
@@ -167,8 +188,14 @@ class TopicsPage(ListPageBase):
         context['topics_ek'] = self.kwargs['ek']
         context['joke'] = dad_jokes()
         context['full_name'] = self.user_name()
+        context['full_name'] = self.user_load_info()
+
         return context
 
+    def user_load_info(self):
+        user_pk = self.kwargs.get('ek')
+        base_user = AppUser.objects.get(pk=user_pk)
+        return base_user
 
 class EditTopicPage(EditPageBase):
     model = ForumTopic
@@ -250,3 +277,5 @@ class SearchResultViewTopics(ListPageBase):
         context['full_name'] = self.user_name()
         context['user'] = self.request.user
         return context
+
+

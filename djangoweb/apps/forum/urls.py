@@ -14,4 +14,5 @@ urlpatterns = (
     path('sub/<int:pk>/topics/<int:ek>/create/', CreateTopicPage.as_view(), name='create_topic'),
     path('sub/<int:pk>/search/', SearchResultView.as_view(), name="search"),
     path('sub/<int:pk>/topics/<int:ek>/search/', SearchResultViewTopics.as_view(), name="search"),
+
 )

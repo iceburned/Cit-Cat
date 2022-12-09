@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from django import forms
 
-from djangoweb.apps.users.models import UserProfileModel
+from djangoweb.apps.users.models import UserProfileModel, AboutData
 
 User = get_user_model()
 
@@ -38,3 +38,7 @@ class ProfileForm(forms.ModelForm):
         # }
 
 
+class AboutPageForm(forms.ModelForm):
+    class Meta:
+        model = AboutData
+        fields = '__all__'
