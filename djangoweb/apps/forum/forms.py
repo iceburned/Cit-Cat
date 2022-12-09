@@ -1,6 +1,20 @@
 from django import forms
 
-from djangoweb.apps.forum.models import ForumTopic, ForumSubcategories
+from djangoweb.apps.forum.models import ForumTopic, ForumSubcategories, ForumCategory
+
+
+class CategoryCreateForm(forms.ModelForm):
+
+    class Meta:
+        model = ForumCategory
+        fields = ('title', 'description')
+
+
+class CategoryEditForm(forms.ModelForm):
+
+    class Meta:
+        model = ForumCategory
+        fields = ('title', 'description')
 
 
 class TopicCreateForm(forms.ModelForm):

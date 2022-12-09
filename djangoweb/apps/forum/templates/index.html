@@ -141,9 +141,10 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
         <div class="u-list u-list-1">
           <div class="u-repeater u-repeater-1">
 
-            <p>Categories</p>
+            <h1>Categories</h1>
+
             <div>
-                <a href="{% url 'category'  %}" class="u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-dark-1 u-radius-6 u-btn-1">Create Category</a>
+                <a href="{% url 'category_create'  %}" class="u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-dark-1 u-radius-6 u-btn-1">Create Category</a>
             </div>
 
 {#              ------------------- first post----------------------#}
@@ -170,7 +171,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
                   </a>
                 </h2>
 
-                <a href="{% url 'category'  %}" class="u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-dark-1 u-radius-6 u-btn-1 u-text-3">Edit category</a>
+                <a href="{% url 'category_edit' category.pk %}" class="u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-dark-1 u-radius-6 u-btn-1 u-text-3">Edit category</a>
                   {% for subcategory in category.subcategories %}
                 <p class="u-text u-text-default u-text-3"><a href="{% url 'topics' pk=category.pk ek=subcategory.pk %}">{{ subcategory.title }}</a> </p>
                   {% endfor %}

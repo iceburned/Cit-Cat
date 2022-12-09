@@ -4,6 +4,8 @@ from djangoweb.apps.forum.views import *
 
 urlpatterns = (
     path('', CategoryPage.as_view(), name="category"),
+    path('create/', CategoryPageCreate.as_view(), name="category_create"),
+    path('edit/<int:pk>/', CategoryPageEdit.as_view(), name="category_edit"),
     path('sub/<int:pk>/', SubcategoryPage.as_view(), name='subcategory'),
     path('sub/<int:pk>/create/', SubcategoryCreate.as_view(), name='subcategory_create'),
     path('sub/<int:pk>/edit/<int:ek>/', SubcategoryEdit.as_view(), name='subcategory_edit'),

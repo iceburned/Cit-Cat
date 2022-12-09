@@ -7,7 +7,8 @@ from django.urls import reverse, reverse_lazy
 from django.views.generic import ListView, DetailView, UpdateView, CreateView
 
 
-from djangoweb.apps.forum.forms import TopicCreateForm, TopicEditForm, SubcategoryCreateForm, SubcategoryEditForm
+from djangoweb.apps.forum.forms import TopicCreateForm, TopicEditForm, SubcategoryCreateForm, SubcategoryEditForm, \
+    CategoryCreateForm, CategoryEditForm
 from djangoweb.apps.forum.models import ForumCategory, ForumSubcategories, ForumTopic
 from djangoweb.apps.forum.tasks import search_in_cat_api
 from djangoweb.apps.users.tasks import search_in_subcategory
@@ -15,8 +16,6 @@ from djangoweb.apps.utils.cat_pics import main_cat
 from djangoweb.apps.utils.dad_jokes import main as dad_jokes
 from djangoweb.services.ses import SESService
 from djangoweb.services.sqs import SQSService
-
-
 
 
 class ListPageBase(ListView):
@@ -69,6 +68,20 @@ class CategoryPage(ListPageBase):
         context['user'] = self.request.user
         # context['avatar'] = self.avatar()
         return context
+
+
+class CategoryPageCreate(CreatePageBase):
+    model = ForumCategory
+    template_name = 'category_create.html'
+    form_class = CategoryCreateForm
+    success_url = reverse_lazy('category')
+
+
+class CategoryPageEdit(EditPageBase):
+    model = ForumCategory
+    template_name = 'category_edit.html'
+    form_class = CategoryEditForm
+    success_url = reverse_lazy('category')
 
 
 class SubcategoryPage(ListPageBase):

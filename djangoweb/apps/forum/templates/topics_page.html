@@ -124,7 +124,15 @@
 
     <div class="u-clearfix u-sheet u-sheet-1">
         <form method="post">
-                <h1>Posts</h1>
+
+
+                {% if user.is_authenticated %}
+                    <h1>Posts</h1>
+                {% endif %}
+
+
+
+
                 <a href="{% url 'create_topic' pk=subcategory_pk ek=topics_ek %}" class="u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-dark-1 u-radius-6 u-btn-1">Create Post</a>
 
 {#            <button type="submit"><a href="{% url 'subcategory_create'  pk=subcategory_pk %}">Create Topic</a></button>#}
@@ -159,10 +167,10 @@
                                                                                           alt=""></span>&nbsp;&nbsp;
                                 </a>
                             </td>
-                            <td class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-table-cell u-table-cell-7">
-                                <a class="u-active-none u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-text-palette-5-dark-1 u-btn-2"></a>
+{#                            <td class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-table-cell u-table-cell-7">#}
+{#                                <a class="u-active-none u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-text-palette-5-dark-1 u-btn-2"></a>#}
 {#                                   href="{% url 'topics' pk=subcategory_pk ek=sub.pk %}">{{ sub.title }} </a>#}
-                            </td>
+{#                            </td>#}
                             <td class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-table-cell u-table-cell-8">{{ topic.content }} </td>
 {#                            <td class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-table-cell u-table-cell-9">{{ sub.count_topics }} </td>#}
 {#                            <td class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-table-cell u-table-cell-10">{{ sub.last_topic }}</td>#}
