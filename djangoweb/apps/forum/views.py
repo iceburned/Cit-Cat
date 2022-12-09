@@ -162,6 +162,7 @@ class EditTopicPage(EditPageBase):
     template_name = 'topic_create_page.html'
     context_object_name = 'topic_create_context'
     form_class = TopicCreateForm
+    pk_url_kwarg = 'tk'
 
     def get_success_url(self):
         return reverse('topics', kwargs={'pk': self.kwargs['pk'], 'ek': self.kwargs['ek']})
@@ -180,6 +181,11 @@ class CreateTopicPage(CreatePageBase):
     template_name = 'topic_edit_page.html'
     context_object_name = 'topic_create_context'
     form_class = TopicEditForm
+
+    def get_initial(self):
+        initial = super(CreateTopicPage, self).get_initial()
+        initial['subcategory'] = ForumTopic.objects.get(pk=self.kwargs['ek'])
+        return initial
 
     def get_success_url(self):
         return reverse('topics', kwargs={'pk': self.kwargs['pk'], 'ek': self.kwargs['ek']})
