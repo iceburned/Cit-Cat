@@ -1,14 +1,14 @@
 import logging
 import boto3
-
+from decouple import config
 
 class SESService:
     def __init__(self):
         self.client = boto3.client(
             'ses',
             region_name="eu-central-1",
-            aws_access_key_id='AKIAVWU2ZEHRJV62EBQN',
-            aws_secret_access_key='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',
+            aws_access_key_id=config('aws_access_key_id'),
+            aws_secret_access_key=config('aws_secret_access_key'),
         )
 
     def send_email(self, email):
