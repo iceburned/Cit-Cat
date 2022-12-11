@@ -1,19 +1,14 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm, UsernameField
 from django.contrib.auth.views import LoginView, LogoutView
-from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
 
 
-from djangoweb.apps.users.forms import SignInForm, ProfileForm, AboutPageForm
+from djangoweb.apps.users.forms import ProfileForm, AboutPageForm
 from djangoweb.apps.users.models import UserProfileModel, AboutData
 
 User = get_user_model()
-
-
-def index(request):
-    return render(request, 'index.html')
 
 
 class SignUpBaseForm(UserCreationForm):
@@ -26,16 +21,14 @@ class SignUpBaseForm(UserCreationForm):
 class RegisterUserView(generic.CreateView):
     template_name = 'sign-up.html'
     form_class = SignUpBaseForm
-    success_url = reverse_lazy('Index')
+    success_url = reverse_lazy('category')
 
 
-class SignInBaseForm(LoginView):
-    pass
-
-
-class SignInView(SignInBaseForm):
+class SignInView(LoginView):
     template_name = 'sign-in.html'
     success_url = reverse_lazy('category')
+
+
 
 
 class SignOutBaseForm(LogoutView):

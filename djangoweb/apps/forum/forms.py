@@ -22,7 +22,11 @@ class TopicCreateForm(forms.ModelForm):
 
     class Meta:
         model = ForumTopic
-        fields = '__all__'
+        fields = ('title', 'content', 'subcategory', 'user')
+        widgets = {
+            'subcategory': forms.HiddenInput(),
+            'user': forms.HiddenInput(),
+        }
 
 
 class TopicEditForm(forms.ModelForm):

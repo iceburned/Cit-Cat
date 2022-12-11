@@ -3,7 +3,7 @@ from django.urls import path
 from djangoweb.apps.forum.views import *
 
 urlpatterns = (
-    path('', CategoryPage.as_view(), name="category"),
+    # path('', CategoryPage.as_view(), name="category"),
     path('create/', CategoryPageCreate.as_view(), name="category_create"),
     path('edit/<int:pk>/', CategoryPageEdit.as_view(), name="category_edit"),
     path('sub/<int:pk>/', SubcategoryPage.as_view(), name='subcategory'),

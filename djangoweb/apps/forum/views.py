@@ -44,18 +44,7 @@ class CreatePageBase(CreateView):
 class CategoryPage(ListPageBase):
     model = ForumCategory
     template_name = 'index.html'
-
-    # def avatar(self):
-    #     if self.request.user.is_anonymous or not self.request.user.objects.get('avatar_pic'):
-    #         return open('static/users/img/avatars_icon.png', "rb").read()
-    #     else:
-    #         return self.request.user.objects.get('avatar_pic')
-
-    # def user_name(self):
-    #     if self.request.user.is_anonymous:
-    #         return 'Anonymous'
-    #     else:
-    #         return self.request.user.get_full_name()
+    paginate_by = 3
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(CategoryPage, self).get_context_data()
@@ -99,6 +88,7 @@ class SubcategoryPage(ListPageBase):
     model = ForumSubcategories
     template_name = 'subcategory_page.html'
     context_object_name = "subcategory_context"
+    paginate_by = 10
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
@@ -149,12 +139,15 @@ class SubcategoryCreate(CreatePageBase):
         context['category_id'] = self.kwargs.get("pk")
         return context
 
+    def get_success_url(self):
+        return reverse('subcategory', kwargs={'pk': self.kwargs['pk']})
+
 
 class SubcategoryEdit(EditPageBase):
     model = ForumSubcategories
     template_name = 'subcategory_create.html'
     form_class = SubcategoryEditForm
-    success_url = reverse_lazy('category')
+    # success_url = reverse_lazy('category')
 
     pk_url_kwarg = 'ek'
 
@@ -170,6 +163,7 @@ class TopicsPage(ListPageBase):
     model = ForumTopic
     template_name = 'topics_page.html'
     context_object_name = 'topics_context'
+    paginate_by = 10
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -188,14 +182,19 @@ class TopicsPage(ListPageBase):
         context['topics_ek'] = self.kwargs['ek']
         context['joke'] = dad_jokes()
         context['full_name'] = self.user_name()
-        context['full_name'] = self.user_load_info()
+        context['group_admin'] = self.group_privileges('admins')
+        context['group_mods'] = self.group_privileges('mods')
+        context['instance_user'] = self.request.user
 
         return context
 
-    def user_load_info(self):
-        user_pk = self.kwargs.get('ek')
-        base_user = AppUser.objects.get(pk=user_pk)
-        return base_user
+    def group_privileges(self, value):
+        current_user = self.request.user
+        user_groups = current_user.groups
+        if user_groups.filter(name=value):
+            return True
+        return False
+
 
 class EditTopicPage(EditPageBase):
     model = ForumTopic
@@ -220,12 +219,19 @@ class CreateTopicPage(CreatePageBase):
     model = ForumTopic
     template_name = 'topic_edit_page.html'
     context_object_name = 'topic_create_context'
-    form_class = TopicEditForm
+    form_class = TopicCreateForm
 
     def get_initial(self):
         initial = super(CreateTopicPage, self).get_initial()
         initial['subcategory'] = ForumTopic.objects.get(pk=self.kwargs['ek'])
+        initial['user'] = self.request.user
         return initial
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        context['subcategory'] = self.kwargs.get("pk")
+        # context['category_id'] = self.kwargs.get("pk")
+        return context
 
     def get_success_url(self):
         return reverse('topics', kwargs={'pk': self.kwargs['pk'], 'ek': self.kwargs['ek']})
