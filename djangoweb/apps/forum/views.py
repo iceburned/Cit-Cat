@@ -101,7 +101,7 @@ class SubcategoryPage(ListPageBase):
         context['full_name'] = self.user_name()
         context['group_admin'] = self.group_privileges('admins')
         context['group_mods'] = self.group_privileges('mods')
-
+        context['search_flag'] = True
         return context
 
     def get_queryset(self):
@@ -240,6 +240,7 @@ class CreateTopicPage(CreatePageBase):
 class SearchResultView(ListPageBase):
     model = ForumSubcategories
     template_name = 'search_subcategories.html'
+    paginate_by = 10
 
     def get_queryset(self):
         query = self.request.GET.get("q")
@@ -247,12 +248,6 @@ class SearchResultView(ListPageBase):
         object_list = ForumSubcategories.objects.filter(
             Q(title__icontains=query) & Q(category_id=self.kwargs["pk"])
         )
-        # a = 'ice_flame@abv.bg'
-        # try:
-        #     SESService().send_email(a)
-        # except Exception as ex:
-        #     a = 1
-        # search_in_subcategory.delay(a)
         return object_list
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -261,7 +256,7 @@ class SearchResultView(ListPageBase):
         context['joke'] = dad_jokes()
         context['full_name'] = self.user_name()
         context['user'] = self.request.user
-
+        # context['search_flag'] = True
         return context
 
 

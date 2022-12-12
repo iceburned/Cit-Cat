@@ -15,7 +15,6 @@ def get_response(url):
 def main():
     url_data = "https://icanhazdadjoke.com/"
     joke = get_response(url_data).decode('UTF-8')
-    print(joke)
     return joke
 
 
