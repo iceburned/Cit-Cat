@@ -290,8 +290,3 @@ class SearchResultViewTopics(ListPageBase):
         context['topics_ek'] = self.kwargs['ek']
         context['search_flag'] = True
         return context
-
-
-def error_404_view(request, exception):
-
-    return render(request, '404.html')
