@@ -1,66 +1,67 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block content %}
+{% block nav %}
 
-                <div class="container-fluid">
 
-                    <h3 class="text-dark mb-4">Search for "{{ query_search }}" returns:</h3>
-
-                    <div class="card shadow">
-{#                        <div class="card-header py-3">#}
-{#                            <p class="text-primary m-0 fw-bold"><a href="{% url 'topics' sub.pk %}">{{ sub.title }}</a></p>#}
-{#                        </div>#}
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-6 text-nowrap">
-                            </div>
-                               <div class="col-md-6">
-                                    <form  method="get">
-                                         <div class="text-md-end dataTables_filter" id="dataTable_filter"><label class="form-label"><input name="q" type="search" class="form-control form-control-sm" aria-controls="dataTable" placeholder="Search"></label></div>
-
-{#                                        <input name="q" type="text" placeholder="Search...">#}
-
-                                    </form>
-{#                                    <div class="text-md-end dataTables_filter" id="dataTable_filter"><label class="form-label"><input type="search" class="form-control form-control-sm" aria-controls="dataTable" placeholder="Search"></label></div>#}
-                                </div>
-                  </div>
-                            <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
-                                <table class="table my-0" id="dataTable">
-                                    <thead>
-                                        <tr>
-                                            <th>Logo</th>
-                                            <th>Title</th>
-                                            <th>Created</th>
-                                            <th>Count topics</th>
-                                            <th>Last topic</th>
-                                        </tr>
-                                    </thead>
-                                    {% for sub in object_list %}
-                                    <tbody>
-                                        <tr>
-                                            <td><img class="rounded-circle me-2" width="30" height="30" src="#"></td>
-                                            <td><div class="title"><a href="{% url 'topics' pk=sub.pk ek=sub.pk %}">{{ sub.title }}</a></div></td>
-                                            <td>{{ sub.date_created }}</td>
-                                            <td>{{ sub.count_topics }}</td>
-                                            <td>{{ sub.last_topic }}</td>
-                                            <td>{{ subcategory_pk }}</td>
-
-                                        </tr>
-
-                                    </tbody>
-                                    {% endfor %}
-                                    <tfoot>
-                                        <tr>
-                                            <td><strong>Logo</strong></td>
-                                            <td><strong>Title</strong></td>
-                                            <td><strong>Created</strong></td>
-                                            <td><strong>Count topics</strong></td>
-                                            <td><strong>Last topic</strong></td>
-                                        </tr>
-                                    </tfoot>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
+    <section class="u-clearfix u-section-1" id="sec-c893">
+        <div class="u-clearfix u-sheet u-valign-middle u-sheet-1"></div>
+        <div class="u-expanded-width u-list u-list-1">
+            <div class="u-repeater u-repeater-1">
+                <div class="u-container-style u-list-item u-repeater-item">
                 </div>
-            {% endblock %}
+            </div>
+        </div>
+    </section>
+
+    <section class="u-align-center u-clearfix u-section-2" id="sec-c4bb">
+        <div>
+            <h3 class="text-dark mb-4">Search for "{{ query_search }}" returns:</h3>
+        </div>
+
+
+        <div class="u-clearfix u-sheet u-sheet-1">
+            <div class="u-expanded-width u-table u-table-responsive u-table-1">
+                <table class="u-table-entity u-table-entity-1">
+                    <colgroup>
+                        <col width="20%">
+                        <col width="20%">
+                        <col width="12.6%">
+                        <col width="27.4%">
+                        <col width="20%">
+                        <col width="20%">
+                    </colgroup>
+                    <thead class="u-custom-font u-font-lobster u-palette-1-light-1 u-table-header u-table-header-1">
+                    <tr style="height: 45px;">
+                        <th class="u-table-cell u-table-cell-1">Logo</th>
+                        <th class="u-table-cell u-table-cell-2">Title</th>
+                        <th class="u-table-cell u-table-cell-3">Created</th>
+                        <th class="u-table-cell u-table-cell-4">Count topics</th>
+                        <th class="u-table-cell u-table-cell-5">Last topic</th>
+                        <th class="u-table-cell u-table-cell-5">Edit</th>
+                    </tr>
+                    </thead>
+                    <tbody class="u-custom-font u-table-alt-palette-1-light-3 u-table-body u-text-font">
+                    {% for sub in object_list %}
+                        <tr style="height: 118px;">
+                            <td class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-table-cell u-table-cell-6">
+                                <a class="u-border-none u-btn u-button-style u-hover-palette-1-dark-1 u-white u-btn-1"
+                                   href=""><span class="u-file-icon u-icon u-icon-1"><img src=""
+                                                                                          alt=""></span>&nbsp;&nbsp;
+                                </a>
+                            </td>
+                            <td class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-table-cell u-table-cell-7">
+                                <a class="u-active-none u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-text-palette-5-dark-1 u-btn-2"
+                                   href="{% url 'topics' pk=sub.pk ek=sub.pk %}">{{ sub.title }} </a>
+                            </td>
+                            <td class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-table-cell u-table-cell-8">{{ sub.date_created }} </td>
+                            <td class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-table-cell u-table-cell-9">{{ sub.count_topics }} </td>
+                            <td class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-table-cell u-table-cell-10">{{ sub.last_topic }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

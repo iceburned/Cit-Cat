@@ -1,5 +1,6 @@
 from django.urls import path
 
+import djangoweb.apps.forum.views
 from djangoweb.apps.forum.views import *
 
 urlpatterns = (
@@ -16,3 +17,5 @@ urlpatterns = (
     path('sub/<int:pk>/topics/<int:ek>/search/', SearchResultViewTopics.as_view(), name="search_topic"),
 
 )
+
+

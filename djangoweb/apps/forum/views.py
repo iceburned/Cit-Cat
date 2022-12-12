@@ -4,6 +4,7 @@ from pathlib import Path
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission, Group
 from django.db.models import Q
+from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
 from django.views.generic import ListView, DetailView, UpdateView, CreateView
 
@@ -45,6 +46,7 @@ class CategoryPage(ListPageBase):
     model = ForumCategory
     template_name = 'index.html'
     paginate_by = 3
+
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(CategoryPage, self).get_context_data()
@@ -102,6 +104,7 @@ class SubcategoryPage(ListPageBase):
         context['group_admin'] = self.group_privileges('admins')
         context['group_mods'] = self.group_privileges('mods')
         context['search_flag'] = True
+        context['subcategory_flag'] = True
         return context
 
     def get_queryset(self):
@@ -185,6 +188,7 @@ class TopicsPage(ListPageBase):
         context['group_admin'] = self.group_privileges('admins')
         context['group_mods'] = self.group_privileges('mods')
         context['instance_user'] = self.request.user
+        context['search_flag'] = True
 
         return context
 
@@ -244,7 +248,8 @@ class SearchResultView(ListPageBase):
 
     def get_queryset(self):
         query = self.request.GET.get("q")
-        cat_id = self.kwargs["pk"]
+        if query.strip() == '':
+            return []
         object_list = ForumSubcategories.objects.filter(
             Q(title__icontains=query) & Q(category_id=self.kwargs["pk"])
         )
@@ -256,7 +261,9 @@ class SearchResultView(ListPageBase):
         context['joke'] = dad_jokes()
         context['full_name'] = self.user_name()
         context['user'] = self.request.user
-        # context['search_flag'] = True
+        context['search_flag'] = True
+        context['subcategory_flag'] = True
+        context['subcategory_pk'] = self.kwargs['pk']
         return context
 
 
@@ -266,8 +273,10 @@ class SearchResultViewTopics(ListPageBase):
 
     def get_queryset(self):
         query = self.request.GET.get("q")
+        if query.strip() == '':
+            return []
         object_list = ForumTopic.objects.filter(
-            Q(title__icontains=query) & Q(category_id=self.kwargs["pk"])
+            Q(title__icontains=query) & Q(subcategory_id=self.kwargs["ek"])
         )
         return object_list
 
@@ -277,6 +286,12 @@ class SearchResultViewTopics(ListPageBase):
         context['joke'] = dad_jokes()
         context['full_name'] = self.user_name()
         context['user'] = self.request.user
+        context['subcategory_pk'] = self.kwargs['pk']
+        context['topics_ek'] = self.kwargs['ek']
+        context['search_flag'] = True
         return context
 
 
+def error_404_view(request, exception):
+
+    return render(request, '404.html')
