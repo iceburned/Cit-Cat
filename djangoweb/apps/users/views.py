@@ -29,8 +29,6 @@ class SignInView(LoginView):
     success_url = reverse_lazy('category')
 
 
-
-
 class SignOutBaseForm(LogoutView):
     pass
 

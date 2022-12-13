@@ -2,6 +2,9 @@ from pathlib import Path
 
 
 from django.contrib.auth import get_user_model
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.utils.decorators import method_decorator
 from django.contrib.auth.models import Permission, Group
 from django.db.models import Q
 from django.shortcuts import render
@@ -47,7 +50,6 @@ class CategoryPage(ListPageBase):
     template_name = 'index.html'
     paginate_by = 3
 
-
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(CategoryPage, self).get_context_data()
         context['joke'] = dad_jokes()
@@ -85,9 +87,16 @@ class CategoryPageEdit(EditPageBase):
     form_class = CategoryEditForm
     success_url = reverse_lazy('category')
 
+# LoginRequiredMixin,
+# @login_required(login_url=LOGIN_REDIRECT_URL)
+# @method_decorator(login_required, name='dispatch')
 
-class SubcategoryPage(ListPageBase):
+
+class SubcategoryPage(LoginRequiredMixin, ListView):
     model = ForumSubcategories
+    # login_url = "Log-in"
+    # redirect_field_name = '/users/login/?next=/forum/'
+
     template_name = 'subcategory_page.html'
     context_object_name = "subcategory_context"
     paginate_by = 10
@@ -124,6 +133,11 @@ class SubcategoryPage(ListPageBase):
             return True
         return False
 
+    def user_name(self):
+        if self.request.user.is_anonymous:
+            return 'Anonymous'
+        else:
+            return self.request.user.get_full_name()
 
 class SubcategoryCreate(CreatePageBase):
     model = ForumSubcategories
