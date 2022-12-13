@@ -92,10 +92,8 @@ class CategoryPageEdit(EditPageBase):
 # @method_decorator(login_required, name='dispatch')
 
 
-class SubcategoryPage(LoginRequiredMixin, ListView):
+class SubcategoryPage(LoginRequiredMixin, ListPageBase):
     model = ForumSubcategories
-    # login_url = "Log-in"
-    # redirect_field_name = '/users/login/?next=/forum/'
 
     template_name = 'subcategory_page.html'
     context_object_name = "subcategory_context"
@@ -133,13 +131,8 @@ class SubcategoryPage(LoginRequiredMixin, ListView):
             return True
         return False
 
-    def user_name(self):
-        if self.request.user.is_anonymous:
-            return 'Anonymous'
-        else:
-            return self.request.user.get_full_name()
 
-class SubcategoryCreate(CreatePageBase):
+class SubcategoryCreate(LoginRequiredMixin, CreatePageBase):
     model = ForumSubcategories
     template_name = 'subcategory_create.html'
     form_class = SubcategoryCreateForm
@@ -160,7 +153,7 @@ class SubcategoryCreate(CreatePageBase):
         return reverse('subcategory', kwargs={'pk': self.kwargs['pk']})
 
 
-class SubcategoryEdit(EditPageBase):
+class SubcategoryEdit(LoginRequiredMixin, EditPageBase):
     model = ForumSubcategories
     template_name = 'subcategory_create.html'
     form_class = SubcategoryEditForm
@@ -176,7 +169,7 @@ class SubcategoryEdit(EditPageBase):
         return context
 
 
-class TopicsPage(ListPageBase):
+class TopicsPage(LoginRequiredMixin, ListPageBase):
     model = ForumTopic
     template_name = 'topics_page.html'
     context_object_name = 'topics_context'
@@ -214,7 +207,7 @@ class TopicsPage(ListPageBase):
         return False
 
 
-class EditTopicPage(EditPageBase):
+class EditTopicPage(LoginRequiredMixin, EditPageBase):
     model = ForumTopic
     template_name = 'topic_create_page.html'
     context_object_name = 'topic_create_context'
@@ -233,7 +226,7 @@ class EditTopicPage(EditPageBase):
         return context
 
 
-class CreateTopicPage(CreatePageBase):
+class CreateTopicPage(LoginRequiredMixin, CreatePageBase):
     model = ForumTopic
     template_name = 'topic_edit_page.html'
     context_object_name = 'topic_create_context'
@@ -255,7 +248,7 @@ class CreateTopicPage(CreatePageBase):
         return reverse('topics', kwargs={'pk': self.kwargs['pk'], 'ek': self.kwargs['ek']})
 
 
-class SearchResultView(ListPageBase):
+class SearchResultView(LoginRequiredMixin, ListPageBase):
     model = ForumSubcategories
     template_name = 'search_subcategories.html'
     paginate_by = 10
@@ -281,7 +274,7 @@ class SearchResultView(ListPageBase):
         return context
 
 
-class SearchResultViewTopics(ListPageBase):
+class SearchResultViewTopics(LoginRequiredMixin, ListPageBase):
     model = ForumTopic
     template_name = 'search_topics.html'
 

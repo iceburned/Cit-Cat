@@ -1,6 +1,6 @@
 from django.urls import path
 
-import djangoweb.apps.forum.views
+
 from djangoweb.apps.forum.views import *
 
 urlpatterns = (
