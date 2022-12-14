@@ -17,7 +17,7 @@
     <div class="u-clearfix u-sheet u-sheet-1">
         <form method="post">
                 <h1>Topics</h1>
-                {% if group_admin or group_mods %}
+                {% if user.is_superuser or user.is_staff %}
                 <a href="{% url 'subcategory_create'  pk=subcategory_pk %}" class="u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-dark-1 u-radius-6 u-btn-1">Create Topic</a>
                 {% endif %}
 {#            <button type="submit"><a href="{% url 'subcategory_create'  pk=subcategory_pk %}">Create Topic</a></button>#}
@@ -59,7 +59,7 @@
                             <td class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-table-cell u-table-cell-8">{{ sub.date_created }} </td>
                             <td class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-table-cell u-table-cell-9">{{ sub.count_topics }} </td>
                             <td class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-table-cell u-table-cell-10">{{ sub.last_topic }}</td>
-                            {% if group_admin or group_mods %}
+                            {% if user.is_superuser or user.is_staff %}
                             <td class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-table-cell u-table-cell-10">
                             <a class="u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-dark-1 u-palette-1-light-1 u-radius-10 u-btn-3" href="{% url 'subcategory_edit' pk=subcategory_pk ek=sub.pk %}">EDIT</a>
 {#                            <button type="submit">Edit</button>#}

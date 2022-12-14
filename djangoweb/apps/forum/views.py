@@ -108,8 +108,8 @@ class SubcategoryPage(LoginRequiredMixin, ListPageBase):
         context['subcategory_pk'] = self.kwargs.get("pk")
         context['joke'] = dad_jokes()
         context['full_name'] = self.user_name()
-        context['group_admin'] = self.group_privileges('admins')
-        context['group_mods'] = self.group_privileges('mods')
+        # context['group_admin'] = self.group_privileges('admins')
+        # context['group_mods'] = self.group_privileges('mods')
         context['search_flag'] = True
         context['subcategory_flag'] = True
         return context
@@ -139,9 +139,11 @@ class SubcategoryCreate(LoginRequiredMixin, CreatePageBase):
     success_url = reverse_lazy('subcategory')
 
     def get_initial(self):
+
         initial = super(SubcategoryCreate, self).get_initial()
-        initial['category'] = ForumSubcategories.objects.get(pk=self.kwargs['pk'])
+        initial['category'] = self.kwargs['pk']
         return initial
+
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
@@ -234,7 +236,7 @@ class CreateTopicPage(LoginRequiredMixin, CreatePageBase):
 
     def get_initial(self):
         initial = super(CreateTopicPage, self).get_initial()
-        initial['subcategory'] = ForumTopic.objects.get(pk=self.kwargs['ek'])
+        initial['subcategory'] = self.kwargs['ek']
         initial['user'] = self.request.user
         return initial
 
