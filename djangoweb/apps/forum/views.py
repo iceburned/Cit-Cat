@@ -11,7 +11,7 @@ from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
 from django.views.generic import ListView, DetailView, UpdateView, CreateView
 
-
+from django.contrib.admin.views.decorators import staff_member_required
 from djangoweb.apps.forum.forms import TopicCreateForm, TopicEditForm, SubcategoryCreateForm, SubcategoryEditForm, \
     CategoryCreateForm, CategoryEditForm
 from djangoweb.apps.forum.models import ForumCategory, ForumSubcategories, ForumTopic
@@ -22,7 +22,7 @@ from djangoweb.apps.utils.cat_pics import main_cat
 from djangoweb.apps.utils.dad_jokes import main as dad_jokes
 from djangoweb.services.ses import SESService
 from djangoweb.services.sqs import SQSService
-
+from django.contrib.auth.decorators import user_passes_test
 
 class ListPageBase(ListView):
 
@@ -62,18 +62,19 @@ class CategoryPage(ListPageBase):
         context['full_name'] = self.user_name()
         context['user'] = self.request.user
         context['search_flag'] = False
-        context['group_admin'] = self.group_privileges()
+        # context['group_admin'] = self.group_privileges()
         # context['avatar'] = self.avatar()
         return context
 
-    def group_privileges(self):
-        current_user = self.request.user
-        user_groups = current_user.groups
-        if user_groups.filter(name='admins'):
-            return True
-        return False
+    # def group_privileges(self):
+    #     current_user = self.request.user
+    #     user_groups = current_user.groups
+    #     if user_groups.filter(name='admins'):
+    #         return True
+    #     return False
 
 
+@method_decorator(user_passes_test(lambda u: u.is_superuser), name='dispatch')
 class CategoryPageCreate(CreatePageBase):
     model = ForumCategory
     template_name = 'category_create.html'
@@ -81,15 +82,12 @@ class CategoryPageCreate(CreatePageBase):
     success_url = reverse_lazy('category')
 
 
-class CategoryPageEdit(EditPageBase):
+@method_decorator(user_passes_test(lambda u: u.is_superuser), name='dispatch')
+class CategoryPageEdit(LoginRequiredMixin, EditPageBase):
     model = ForumCategory
     template_name = 'category_edit.html'
     form_class = CategoryEditForm
     success_url = reverse_lazy('category')
-
-# LoginRequiredMixin,
-# @login_required(login_url=LOGIN_REDIRECT_URL)
-# @method_decorator(login_required, name='dispatch')
 
 
 class SubcategoryPage(LoginRequiredMixin, ListPageBase):
