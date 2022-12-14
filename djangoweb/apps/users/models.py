@@ -56,7 +56,7 @@ class AppUser(AbstractUser):
             validators.MinLengthValidator(MIN_LEN_FIRST_NAME),
             validators.RegexValidator(
                 r"^[a-zA-z]+$",
-                message="Ensure this value contains only letters and numbers."
+                message="Ensure this value contains only letters."
             ),
         ),
     )
@@ -67,7 +67,7 @@ class AppUser(AbstractUser):
             validators.MinLengthValidator(MIN_LEN_LAST_NAME),
             validators.RegexValidator(
                 r"^[a-zA-z]+$",
-                message="Ensure this value contains only letters and numbers."
+                message="Ensure this value contains only letters."
             ),
         ),
     )
