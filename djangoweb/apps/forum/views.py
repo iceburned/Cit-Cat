@@ -1,28 +1,16 @@
-from pathlib import Path
 
-
-from django.contrib.auth import get_user_model
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.decorators import method_decorator
-from django.contrib.auth.models import Permission, Group
 from django.db.models import Q
-from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
-from django.views.generic import ListView, DetailView, UpdateView, CreateView
-
-from django.contrib.admin.views.decorators import staff_member_required
-from djangoweb.apps.forum.forms import TopicCreateForm, TopicEditForm, SubcategoryCreateForm, SubcategoryEditForm, \
+from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView
+from djangoweb.apps.forum.forms import TopicCreateForm, SubcategoryCreateForm, SubcategoryEditForm, \
     CategoryCreateForm, CategoryEditForm
 from djangoweb.apps.forum.models import ForumCategory, ForumSubcategories, ForumTopic
-from djangoweb.apps.forum.tasks import search_in_cat_api
-from djangoweb.apps.users.models import AppUser
-from djangoweb.apps.users.tasks import search_in_subcategory
-from djangoweb.apps.utils.cat_pics import main_cat
 from djangoweb.apps.utils.dad_jokes import main as dad_jokes
-from djangoweb.services.ses import SESService
-from djangoweb.services.sqs import SQSService
 from django.contrib.auth.decorators import user_passes_test
+from django.contrib.admin.views.decorators import staff_member_required
+
 
 class ListPageBase(ListView):
 
@@ -45,8 +33,12 @@ class CreatePageBase(CreateView):
     pass
 
 
+class DeletePageBase(DeleteView):
+    pass
+
+
 class CategoryPage(ListPageBase):
-    model = ForumCategory
+    # model = ForumCategory
     template_name = 'index.html'
     paginate_by = 3
 
@@ -83,16 +75,22 @@ class CategoryPageCreate(CreatePageBase):
 
 
 @method_decorator(user_passes_test(lambda u: u.is_superuser), name='dispatch')
-class CategoryPageEdit(LoginRequiredMixin, EditPageBase):
+class CategoryPageEdit(EditPageBase):
     model = ForumCategory
     template_name = 'category_edit.html'
     form_class = CategoryEditForm
     success_url = reverse_lazy('category')
 
 
+@method_decorator(user_passes_test(lambda u: u.is_superuser), name='dispatch')
+class CategoryPageDelete(DeletePageBase):
+    model = ForumCategory
+    template_name = 'delete.html'
+    success_url = reverse_lazy('category')
+
+
 class SubcategoryPage(LoginRequiredMixin, ListPageBase):
     model = ForumSubcategories
-
     template_name = 'subcategory_page.html'
     context_object_name = "subcategory_context"
     paginate_by = 10
@@ -130,18 +128,17 @@ class SubcategoryPage(LoginRequiredMixin, ListPageBase):
         return False
 
 
-class SubcategoryCreate(LoginRequiredMixin, CreatePageBase):
+@method_decorator(staff_member_required, name='dispatch')
+class SubcategoryCreate(CreatePageBase):
     model = ForumSubcategories
     template_name = 'subcategory_create.html'
     form_class = SubcategoryCreateForm
     success_url = reverse_lazy('subcategory')
 
     def get_initial(self):
-
         initial = super(SubcategoryCreate, self).get_initial()
         initial['category'] = self.kwargs['pk']
         return initial
-
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
@@ -153,19 +150,33 @@ class SubcategoryCreate(LoginRequiredMixin, CreatePageBase):
         return reverse('subcategory', kwargs={'pk': self.kwargs['pk']})
 
 
-class SubcategoryEdit(LoginRequiredMixin, EditPageBase):
+@method_decorator(staff_member_required, name='dispatch')
+class SubcategoryEdit(EditPageBase):
     model = ForumSubcategories
     template_name = 'subcategory_create.html'
     form_class = SubcategoryEditForm
-    # success_url = reverse_lazy('category')
-
     pk_url_kwarg = 'ek'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
         context['subcategory_pk'] = self.kwargs.get("pk")
         context['topics_ek'] = self.kwargs['ek']
-        a = 1
+        return context
+
+
+@method_decorator(staff_member_required, name='dispatch')
+class SubcategoryDelete(DeletePageBase):
+    model = ForumSubcategories
+    template_name = 'delete.html'
+    pk_url_kwarg = 'ek'
+
+    def get_success_url(self):
+        return reverse('subcategory', kwargs={'pk': self.kwargs['pk']})
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        context['subcategory_pk'] = self.kwargs.get("pk")
+        context['topics_ek'] = self.kwargs['ek']
         return context
 
 
@@ -246,6 +257,24 @@ class CreateTopicPage(LoginRequiredMixin, CreatePageBase):
 
     def get_success_url(self):
         return reverse('topics', kwargs={'pk': self.kwargs['pk'], 'ek': self.kwargs['ek']})
+
+
+class TopicPageDelete(LoginRequiredMixin, DeletePageBase):
+    model = ForumTopic
+    template_name = 'delete.html'
+    # context_object_name = 'topic_create_context'
+    pk_url_kwarg = 'tk'
+
+    def get_success_url(self):
+        return reverse('topics', kwargs={'pk': self.kwargs['pk'], 'ek': self.kwargs['ek']})
+
+    # def get_context_data(self, **kwargs):
+    #     context = super(TopicPageDelete, self).get_context_data()
+    #     kwargs_path = self.request.resolver_match.captured_kwargs
+    #     context['category_pk'] = kwargs_path['pk']
+    #     context['subcategory_ek'] = kwargs_path['ek']
+    #     context['topics_tk'] = kwargs_path['tk']
+    #     return context
 
 
 class SearchResultView(LoginRequiredMixin, ListPageBase):

@@ -7,7 +7,7 @@ from django.views import generic
 
 
 from djangoweb.apps.users.forms import ProfileForm, AboutPageForm
-from djangoweb.apps.users.models import UserProfileModel, AboutData
+from djangoweb.apps.users.models import AboutData
 
 User = get_user_model()
 
@@ -48,33 +48,6 @@ class ProfileView(LoginRequiredMixin, generic.UpdateView):
         return reverse_lazy('Profile', kwargs={'pk': self.kwargs['pk']})
 
 
-    # def post(self, request, *args, **kwargs):
-    #     post = super(ProfileView, self).post(request, *args, **kwargs)
-    #     form = ProfileForm(request.POST, request.FILES)
-    #     if form.is_valid():
-    #         name = form.cleaned_data.get("name")
-    #         img = form.cleaned_data.get("geeks_field")
-    #         obj = User.objects.create(
-    #             title = name,
-    #             img = img
-    #         )
-    #         obj.save()
-    #         print(obj)
-    #
-    #
-    #     return post
-
-    # def get_context_data(self, **kwargs):
-    #     context = super(ProfileView, self).get_context_data()
-
-        # id_instance = self.kwargs['pk']
-        # context['profile_model'] = UserProfileModel.objects.get(user_id=id_instance)
-        # return context
-
-#
-# def send_email_to_new_users():
-#     pass
-
 class AboutPage(generic.CreateView):
     model = AboutData
     template_name = 'about_page.html'
@@ -82,3 +55,8 @@ class AboutPage(generic.CreateView):
     success_url = reverse_lazy('category')
 
 
+# def handler500(request, *args, **kwargs):
+#     template = loader.get_template('505.html')
+#
+#     response.status_code = 500
+#     return HttpResponse(template.render(request))

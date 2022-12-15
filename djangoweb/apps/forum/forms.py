@@ -3,7 +3,6 @@ from django import forms
 from djangoweb.apps.forum.models import ForumTopic, ForumSubcategories, ForumCategory
 
 
-
 class CategoryCreateForm(forms.ModelForm):
 
     class Meta:

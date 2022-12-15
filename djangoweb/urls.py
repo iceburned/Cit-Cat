@@ -7,7 +7,7 @@ from django.conf.urls.static import static
 
 
 from djangoweb.apps.forum.views import CategoryPage
-
+from djangoweb.apps.utils.error_handler_500 import custom_handler500
 
 
 urlpatterns = [
@@ -19,3 +19,4 @@ urlpatterns = [
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
+handler500 = custom_handler500

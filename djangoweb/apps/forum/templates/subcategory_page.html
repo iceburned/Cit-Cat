@@ -61,8 +61,8 @@
                             <td class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-table-cell u-table-cell-10">{{ sub.last_topic }}</td>
                             {% if user.is_superuser or user.is_staff %}
                             <td class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-table-cell u-table-cell-10">
-                            <a class="u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-dark-1 u-palette-1-light-1 u-radius-10 u-btn-3" href="{% url 'subcategory_edit' pk=subcategory_pk ek=sub.pk %}">EDIT</a>
-{#                            <button type="submit">Edit</button>#}
+                            <a class="u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-dark-1 u-palette-1-light-1 u-radius-10 u-btn-3" href="{% url 'subcategory_edit' pk=subcategory_pk ek=sub.pk %}">Edit</a>
+                            <a class="u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-dark-1 u-palette-1-light-1 u-radius-10 u-btn-3" href="{% url 'subcategory_delete' pk=subcategory_pk ek=sub.pk %}">Delete</a>
                             </td>
                             {% endif %}
 

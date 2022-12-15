@@ -41,7 +41,7 @@ class ForumCategory(models.Model):
     slug = models.SlugField(
         unique=True,
         blank=True,
-        null=False,
+        null=True,
     )
 
     # def get_absolute_url(self):
@@ -96,7 +96,7 @@ class ForumSubcategories(models.Model):
     slug = models.SlugField(
         unique=True,
         blank=True,
-        null=False,
+        null=True,
     )
 
     # def save(self, *args, **kwargs):
@@ -149,7 +149,7 @@ class ForumTopic(models.Model):
     slug = models.SlugField(
         unique=True,
         blank=True,
-        null=False,
+        null=True,
     )
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     subcategory = models.ForeignKey(ForumSubcategories, on_delete=models.CASCADE)

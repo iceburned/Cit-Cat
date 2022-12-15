@@ -57,7 +57,7 @@
                             <td class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-table-cell u-table-cell-10">
                                 {% if topic.user == instance_user or topic.user.is_superuser or topic.user.is_stuff%}
                                 <a class="u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-dark-1 u-palette-1-light-1 u-radius-10 u-btn-3" href="{% url 'edit_topic' pk=subcategory_pk ek=topics_ek tk=topic.pk %}">EDIT</a>
-                                <a class="u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-dark-1 u-palette-1-light-1 u-radius-10 u-btn-3" href="{% url 'edit_topic' pk=subcategory_pk ek=topics_ek tk=topic.pk %}">DELETE</a>
+                                <a class="u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-dark-1 u-palette-1-light-1 u-radius-10 u-btn-3" href="{% url 'topic_delete' pk=subcategory_pk ek=topics_ek tk=topic.pk %}">DELETE</a>
                                 {% endif %}
                             </td>
 
