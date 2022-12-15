@@ -4,7 +4,7 @@ from django.urls import reverse
 from djangoweb.apps.users.models import AppUser
 
 
-class CategoryPageResponseTests(TestCase):
+class SubcategoryPageResponseTests(TestCase):
     def setUp(self):
         u = {
             "username": "django",
@@ -18,7 +18,7 @@ class CategoryPageResponseTests(TestCase):
         self.client.login(username='django', password='LAPTOP-AJJSFUCE')
 
     def test_category_page_status_code_is_200(self):
-        response = self.client.get('forum/sub/1/')
+        response = self.client.get('/forum/sub/1/')
         self.assertEquals(response.status_code, 200)
 
     def test_view_url_by_name(self):
@@ -28,3 +28,28 @@ class CategoryPageResponseTests(TestCase):
     def test_view_uses_correct_template(self):
         response = self.client.get(reverse('subcategory', kwargs={'pk': 1}))
         self.assertTemplateUsed(response, 'subcategory_page.html')
+
+
+class SubcategoryPageAnonymousResponseTests(TestCase):
+    def setUp(self):
+        u = {
+            "username": "django",
+            "email": "asd@abv.bg",
+            "password": 'LAPTOP-AJJSFUCE',
+            "first_name": 'Teo',
+            "last_name": 'Teo',
+            "gender": 'male',
+        }
+        self.regular_user = AppUser.objects.create_user(**u)
+
+    def test_category_page_status_code_is_200(self):
+        response = self.client.get('/forum/sub/1/')
+        self.assertEquals(response.status_code, 302)
+
+    def test_view_url_by_name(self):
+        response = self.client.get(reverse('subcategory', kwargs={'pk': 1}))
+        self.assertEquals(response.status_code, 302)
+
+    def test_view_uses_correct_template(self):
+        response = self.client.get(reverse('subcategory', kwargs={'pk': 1}))
+        self.assertRedirects(response, '/users/login/?next=/forum/sub/1/')

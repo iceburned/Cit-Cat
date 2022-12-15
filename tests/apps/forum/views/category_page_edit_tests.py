@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.urls import reverse
 
-from djangoweb.apps.forum.models import ForumCategory
+
 from djangoweb.apps.users.models import AppUser
 
 
