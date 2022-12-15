@@ -47,8 +47,6 @@ INSTALLED_APPS = [
     'djangoweb.apps.forum',
 
     # Third-party apps
-    'bootstrap5',
-    'rest_framework',
     'widget_tweaks',
     'django_celery_results',
 ]
