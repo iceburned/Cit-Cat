@@ -1,8 +1,7 @@
 from django.http import HttpResponse
+from django.shortcuts import render
 from django.template import loader, response
 
 
 def custom_handler500(request, *args, **kwargs):
-    template = loader.get_template('500.html')
-    response.status_code = 500
-    return HttpResponse(template.render(request))
+    return render(request, '500.html')

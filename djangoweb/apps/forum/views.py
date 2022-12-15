@@ -7,6 +7,7 @@ from django.views.generic import ListView, DetailView, UpdateView, CreateView, D
 from djangoweb.apps.forum.forms import TopicCreateForm, SubcategoryCreateForm, SubcategoryEditForm, \
     CategoryCreateForm, CategoryEditForm
 from djangoweb.apps.forum.models import ForumCategory, ForumSubcategories, ForumTopic
+from djangoweb.apps.forum.tasks import search_in_cat_api
 from djangoweb.apps.utils.dad_jokes import main as dad_jokes
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.admin.views.decorators import staff_member_required
@@ -38,19 +39,19 @@ class DeletePageBase(DeleteView):
 
 
 class CategoryPage(ListPageBase):
-    # model = ForumCategory
+    model = ForumCategory
     template_name = 'index.html'
     paginate_by = 3
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(CategoryPage, self).get_context_data()
         context['joke'] = dad_jokes()
-        # context['cat_of_the_day'] = search_in_cat_api()
-        # context['cat_of_the_day1'] = search_in_cat_api()
-        # context['cat_of_the_day2'] = search_in_cat_api()
-        # context['cat_of_the_day3'] = search_in_cat_api()
-        # context['cat_of_the_day4'] = search_in_cat_api()
-        # context['cat_of_the_day5'] = search_in_cat_api()
+        context['cat_of_the_day'] = search_in_cat_api()
+        context['cat_of_the_day1'] = search_in_cat_api()
+        context['cat_of_the_day2'] = search_in_cat_api()
+        context['cat_of_the_day3'] = search_in_cat_api()
+        context['cat_of_the_day4'] = search_in_cat_api()
+        context['cat_of_the_day5'] = search_in_cat_api()
         context['full_name'] = self.user_name()
         context['user'] = self.request.user
         context['search_flag'] = False

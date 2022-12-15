@@ -1,10 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+{% extends 'base.html' %}
+{% load static %}
+{% block nav %}
 <body>
-    <H1 style="color: #6f231c">This is my 500</H1>
+    <center>
+    <H1 style="color: #6f231c">This is page 500 please go back to Home!</H1>
+
+    <img src="{% static '/media/maxresdefault.jpg' %}">
+    </center>
 </body>
-</html>
+{% endblock %}

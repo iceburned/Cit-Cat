@@ -15,7 +15,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('users/', include('djangoweb.apps.users.urls')),
     path('forum/', include('djangoweb.apps.forum.urls')),
-    path('api-auth/', include('rest_framework.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
