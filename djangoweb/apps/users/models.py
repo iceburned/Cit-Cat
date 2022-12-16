@@ -192,3 +192,24 @@ class AboutData(models.Model):
         blank=False,
         null=False,
     )
+
+
+class CatInfo(models.Model):
+    NAME_MAX_LENGTH = 15
+
+    name = models.CharField(
+        max_length=NAME_MAX_LENGTH
+    )
+
+    description = models.TextField()
+
+    height = models.IntegerField()
+
+    weight = models.IntegerField()
+
+    characteristics = models.TextField()
+
+    appuser = models.ManyToManyField(AppUser)
+
+    image = models.ImageField()
+

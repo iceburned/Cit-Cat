@@ -20,22 +20,19 @@
                 {% if user.is_superuser or user.is_staff %}
                 <a href="{% url 'subcategory_create'  pk=subcategory_pk %}" class="u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-dark-1 u-radius-6 u-btn-1">Create Topic</a>
                 {% endif %}
-{#            <button type="submit"><a href="{% url 'subcategory_create'  pk=subcategory_pk %}">Create Topic</a></button>#}
             {% csrf_token %}
 
             <div class="u-expanded-width u-table u-table-responsive u-table-1">
                 <table class="u-table-entity u-table-entity-1">
                     <colgroup>
-                        <col width="20%">
-                        <col width="20%">
+                        <col width="40%">
                         <col width="12.6%">
-                        <col width="27.4%">
-                        <col width="20%">
+                        <col width="10.4%">
+                        <col width="40%">
                         <col width="20%">
                     </colgroup>
                     <thead class="u-custom-font u-font-lobster u-palette-1-light-1 u-table-header u-table-header-1">
                     <tr style="height: 45px;">
-                        <th class="u-table-cell u-table-cell-1">Logo</th>
                         <th class="u-table-cell u-table-cell-2">Title</th>
                         <th class="u-table-cell u-table-cell-3">Created</th>
                         <th class="u-table-cell u-table-cell-4">Count topics</th>
@@ -46,12 +43,6 @@
                     <tbody class="u-custom-font u-table-alt-palette-1-light-3 u-table-body u-text-font">
                     {% for sub in object_list %}
                         <tr style="height: 118px;">
-                            <td class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-table-cell u-table-cell-6">
-                                <a class="u-border-none u-btn u-button-style u-hover-palette-1-dark-1 u-white u-btn-1"
-                                   href=""><span class="u-file-icon u-icon u-icon-1"><img src="images/Aegean.jpg"
-                                                                                          alt=""></span>&nbsp;&nbsp;
-                                </a>
-                            </td>
                             <td class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-table-cell u-table-cell-7">
                                 <a class="u-active-none u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-text-palette-5-dark-1 u-btn-2"
                                    href="{% url 'topics' pk=subcategory_pk ek=sub.pk %}">{{ sub.title }} </a>
@@ -71,10 +62,6 @@
                     </tbody>
                 </table>
             </div>
-            <a class="u-border-none u-btn u-button-style u-hover-palette-1-dark-1 u-white u-btn-10"
-               href="https://nicepage.com"><span class="u-file-icon u-icon u-icon-5"><img src="images/Aegean.jpg"
-                                                                                          alt=""></span>&nbsp;
-            </a>
         </form>
     </div>
 

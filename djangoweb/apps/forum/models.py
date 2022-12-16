@@ -29,8 +29,8 @@ class ForumCategory(models.Model):
         null=True,
     )
 
-    date_created = models.TimeField(
-        auto_now=True,
+    date_created = models.DateTimeField(
+        auto_now_add=True,
     )
 
     logo = models.ImageField(
@@ -84,8 +84,8 @@ class ForumSubcategories(models.Model):
         null=True,
     )
 
-    date_created = models.TimeField(
-        auto_now=True,
+    date_created = models.DateTimeField(
+        auto_now_add=True,
     )
 
     category = models.ForeignKey(
@@ -142,8 +142,8 @@ class ForumTopic(models.Model):
         null=True,
     )
 
-    date_created = models.TimeField(
-        auto_now=True,
+    date_created = models.DateTimeField(
+        auto_now_add=True,
     )
 
     slug = models.SlugField(

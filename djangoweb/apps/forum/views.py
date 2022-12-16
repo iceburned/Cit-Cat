@@ -65,6 +65,8 @@ class CategoryPage(ListPageBase):
     #     if user_groups.filter(name='admins'):
     #         return True
     #     return False
+    class Meta:
+        ordering = ['-id']
 
 
 @method_decorator(user_passes_test(lambda u: u.is_superuser), name='dispatch')
@@ -128,6 +130,9 @@ class SubcategoryPage(LoginRequiredMixin, ListPageBase):
             return True
         return False
 
+    class Meta:
+        ordering = ['-id']
+
 
 @method_decorator(staff_member_required, name='dispatch')
 class SubcategoryCreate(CreatePageBase):
@@ -163,6 +168,9 @@ class SubcategoryEdit(EditPageBase):
         context['subcategory_pk'] = self.kwargs.get("pk")
         context['topics_ek'] = self.kwargs['ek']
         return context
+
+    def get_success_url(self):
+        return reverse('subcategory', kwargs={'pk': self.kwargs['pk']})
 
 
 @method_decorator(staff_member_required, name='dispatch')
