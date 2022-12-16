@@ -31,8 +31,6 @@
 
                         <col width="20%">
                         <col width="80.6%">
-{#                        <col width="27.4%">#}
-{#                        <col width="20%">#}
                         <col width="40%">
                     </colgroup>
                     <thead class="u-custom-font u-font-lobster u-palette-1-light-1 u-table-header u-table-header-1">
@@ -40,8 +38,6 @@
 
                             <th class="u-table-cell u-table-cell-2">Creator</th>
                         <th class="u-table-cell u-table-cell-3">Content</th>
-{#                        <th class="u-table-cell u-table-cell-4">Count topics</th>#}
-{#                        <th class="u-table-cell u-table-cell-5">Last topic</th>#}
                         <th class="u-table-cell u-table-cell-5">Edit</th>
                     </tr>
                     </thead>
@@ -51,6 +47,8 @@
                             <td class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-table-cell u-table-cell-6">
                                 <img src="{{ topic.user.avatar_pic }}" width="160px" height="160px">
                                 <h6>{{ topic.user }}</h6>
+                                <h6>Cat: {{ cat_owned.name }}</h6>
+
                             </td>
                             <td class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-table-cell u-table-cell-8">{{ topic.content }} </td>
 
@@ -60,16 +58,11 @@
                                 <a class="u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-dark-1 u-palette-1-light-1 u-radius-10 u-btn-3" href="{% url 'topic_delete' pk=subcategory_pk ek=topics_ek tk=topic.pk %}">DELETE</a>
                                 {% endif %}
                             </td>
-
                         </tr>
                     {% endfor %}
                     </tbody>
                 </table>
             </div>
-{#            <a class="u-border-none u-btn u-button-style u-hover-palette-1-dark-1 u-white u-btn-10"#}
-{#               href="https://nicepage.com"><span class="u-file-icon u-icon u-icon-5"><img src="images/Aegean.jpg"#}
-{#                                                                                          alt=""></span>&nbsp;#}
-{#            </a>#}
         </form>
     </div>
 

@@ -15,6 +15,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('users/', include('djangoweb.apps.users.urls')),
     path('forum/', include('djangoweb.apps.forum.urls')),
+    path('breed/', include('djangoweb.apps.breed.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

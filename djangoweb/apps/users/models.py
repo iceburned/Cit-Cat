@@ -209,7 +209,20 @@ class CatInfo(models.Model):
 
     characteristics = models.TextField()
 
-    appuser = models.ManyToManyField(AppUser)
+    # appuser = models.ManyToManyField(AppUser)
 
-    image = models.ImageField()
+    image = models.ImageField(
+        blank=True,
+        null=True,
+    )
+
+    image2 = models.ImageField(
+        blank=True,
+        null=True,
+    )
+
+    image3 = models.ImageField(
+        blank=True,
+        null=True,
+    )
 

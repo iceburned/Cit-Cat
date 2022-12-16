@@ -6,17 +6,10 @@ from django.urls import reverse_lazy
 from django.views import generic
 
 
-from djangoweb.apps.users.forms import ProfileForm, AboutPageForm
+from djangoweb.apps.users.forms import ProfileForm, AboutPageForm, SignUpBaseForm
 from djangoweb.apps.users.models import AboutData
 
 User = get_user_model()
-
-
-class SignUpBaseForm(UserCreationForm):
-    class Meta:
-        model = User
-        fields = ['username', 'email']
-        field_classes = {'username': UsernameField}
 
 
 class RegisterUserView(generic.CreateView):

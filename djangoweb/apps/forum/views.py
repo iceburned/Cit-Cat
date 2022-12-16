@@ -7,10 +7,13 @@ from django.views.generic import ListView, DetailView, UpdateView, CreateView, D
 from djangoweb.apps.forum.forms import TopicCreateForm, SubcategoryCreateForm, SubcategoryEditForm, \
     CategoryCreateForm, CategoryEditForm
 from djangoweb.apps.forum.models import ForumCategory, ForumSubcategories, ForumTopic
+from djangoweb.apps.users.models import CatInfo
 from djangoweb.apps.forum.tasks import search_in_cat_api
 from djangoweb.apps.utils.dad_jokes import main as dad_jokes
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.admin.views.decorators import staff_member_required
+
+
 
 
 class ListPageBase(ListView):
@@ -46,16 +49,15 @@ class CategoryPage(ListPageBase):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(CategoryPage, self).get_context_data()
         context['joke'] = dad_jokes()
-        context['cat_of_the_day'] = search_in_cat_api()
-        context['cat_of_the_day1'] = search_in_cat_api()
-        context['cat_of_the_day2'] = search_in_cat_api()
-        context['cat_of_the_day3'] = search_in_cat_api()
-        context['cat_of_the_day4'] = search_in_cat_api()
-        context['cat_of_the_day5'] = search_in_cat_api()
+        # context['cat_of_the_day'] = search_in_cat_api()
+        # context['cat_of_the_day1'] = search_in_cat_api()
+        # context['cat_of_the_day2'] = search_in_cat_api()
+        # context['cat_of_the_day3'] = search_in_cat_api()
+        # context['cat_of_the_day4'] = search_in_cat_api()
+        # context['cat_of_the_day5'] = search_in_cat_api()
         context['full_name'] = self.user_name()
         context['user'] = self.request.user
         context['search_flag'] = False
-        # context['group_admin'] = self.group_privileges()
         # context['avatar'] = self.avatar()
         return context
 
@@ -216,8 +218,15 @@ class TopicsPage(LoginRequiredMixin, ListPageBase):
         context['group_mods'] = self.group_privileges('mods')
         context['instance_user'] = self.request.user
         context['search_flag'] = True
-
+        # context['cat_owned'] = self.cat_owned()
         return context
+
+    # def cat_owned(self):
+    #     cat = self.request.user.catinfo_set.first()
+    #     if cat:
+    #         return cat
+    #     return 'No cat owned'
+
 
     def group_privileges(self, value):
         current_user = self.request.user

@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django import forms
+from django.contrib.auth.forms import UserCreationForm, UsernameField
 
 from djangoweb.apps.users.models import UserProfileModel, AboutData
 
@@ -36,6 +37,13 @@ class ProfileForm(forms.ModelForm):
         #     'signature': forms.Textarea(attrs={'class': 'card', }),
         #
         # }
+
+
+class SignUpBaseForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ['username', 'email']
+        field_classes = {'username': UsernameField}
 
 
 class AboutPageForm(forms.ModelForm):
