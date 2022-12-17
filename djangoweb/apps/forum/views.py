@@ -161,7 +161,7 @@ class SubcategoryCreate(CreatePageBase):
 @method_decorator(staff_member_required, name='dispatch')
 class SubcategoryEdit(EditPageBase):
     model = ForumSubcategories
-    template_name = 'subcategory_create.html'
+    template_name = 'subcategory_edit.html'
     form_class = SubcategoryEditForm
     pk_url_kwarg = 'ek'
 
@@ -238,7 +238,7 @@ class TopicsPage(LoginRequiredMixin, ListPageBase):
 
 class EditTopicPage(LoginRequiredMixin, EditPageBase):
     model = ForumTopic
-    template_name = 'topic_create_page.html'
+    template_name = 'topic_edit_page.html'
     context_object_name = 'topic_create_context'
     form_class = TopicCreateForm
     pk_url_kwarg = 'tk'
@@ -257,7 +257,7 @@ class EditTopicPage(LoginRequiredMixin, EditPageBase):
 
 class CreateTopicPage(LoginRequiredMixin, CreatePageBase):
     model = ForumTopic
-    template_name = 'topic_edit_page.html'
+    template_name = 'topic_create_page.html'
     context_object_name = 'topic_create_context'
     form_class = TopicCreateForm
 

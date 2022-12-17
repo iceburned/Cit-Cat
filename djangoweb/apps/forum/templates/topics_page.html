@@ -7,7 +7,7 @@
     <div class="u-expanded-width u-list u-list-1">
       <div class="u-repeater u-repeater-1">
         <div class="u-container-style u-list-item u-repeater-item">
-
+        </div>
       </div>
     </div>
   </div>
@@ -22,7 +22,6 @@
 
                 <a href="{% url 'create_topic' pk=subcategory_pk ek=topics_ek %}" class="u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-dark-1 u-radius-6 u-btn-1">Create Post</a>
 
-{#            <button type="submit"><a href="{% url 'subcategory_create'  pk=subcategory_pk %}">Create Topic</a></button>#}
             {% csrf_token %}
 
             <div class="u-expanded-width u-table u-table-responsive u-table-1">
@@ -47,7 +46,6 @@
                             <td class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-table-cell u-table-cell-6">
                                 <img src="{{ topic.user.avatar_pic }}" width="160px" height="160px">
                                 <h6>{{ topic.user }}</h6>
-                                <h6>Cat: {{ cat_owned.name }}</h6>
 
                             </td>
                             <td class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-table-cell u-table-cell-8">{{ topic.content }} </td>
