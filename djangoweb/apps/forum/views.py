@@ -14,8 +14,6 @@ from django.contrib.auth.decorators import user_passes_test
 from django.contrib.admin.views.decorators import staff_member_required
 
 
-
-
 class ListPageBase(ListView):
 
     def user_name(self):
@@ -67,8 +65,6 @@ class CategoryPage(ListPageBase):
     #     if user_groups.filter(name='admins'):
     #         return True
     #     return False
-    # class Meta:
-    #     ordering = ['-id']
 
 
 @method_decorator(user_passes_test(lambda u: u.is_superuser), name='dispatch')
@@ -214,8 +210,8 @@ class TopicsPage(LoginRequiredMixin, ListPageBase):
         context['topics_ek'] = self.kwargs['ek']
         context['joke'] = dad_jokes()
         context['full_name'] = self.user_name()
-        context['group_admin'] = self.group_privileges('admins')
-        context['group_mods'] = self.group_privileges('mods')
+        # context['group_admin'] = self.group_privileges('admins')
+        # context['group_mods'] = self.group_privileges('mods')
         context['instance_user'] = self.request.user
         context['search_flag'] = True
         # context['cat_owned'] = self.cat_owned()
@@ -228,12 +224,12 @@ class TopicsPage(LoginRequiredMixin, ListPageBase):
     #     return 'No cat owned'
 
 
-    def group_privileges(self, value):
-        current_user = self.request.user
-        user_groups = current_user.groups
-        if user_groups.filter(name=value):
-            return True
-        return False
+    # def group_privileges(self, value):
+    #     current_user = self.request.user
+    #     user_groups = current_user.groups
+    #     if user_groups.filter(name=value):
+    #         return True
+    #     return False
 
 
 class EditTopicPage(LoginRequiredMixin, EditPageBase):

@@ -4,9 +4,6 @@ from django.views.generic import DetailView, UpdateView, CreateView, ListView
 from djangoweb.apps.users.models import CatInfo
 
 
-# Create your views here.
-
-
 class CatInfoPageCreate(CreateView):
     pass
 

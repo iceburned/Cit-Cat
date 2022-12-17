@@ -6,17 +6,17 @@ from djangoweb.apps.users.models import CatInfo, UserProfileModel
 UserModel = get_user_model()
 
 
-class UserProfileModelAdmin(admin.StackedInline):
-    model = UserProfileModel
-    list_display = ('user',)
+# class UserProfileModelAdmin(admin.StackedInline):
+#     model = UserProfileModel
+#     list_display = ('user',)
 
 
 @admin.register(UserModel)
 class UserAdmins(admin.ModelAdmin):
     list_display = ('username', 'age')
-    inlines = [
-        UserProfileModelAdmin,
-    ]
+    # inlines = [
+    #     UserProfileModelAdmin,
+    # ]
 
 
 @admin.register(CatInfo)
