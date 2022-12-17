@@ -39,10 +39,10 @@ def handle_message_created(sender, instance, created, **kwargs):
         print("Message send")
 
 
-@receiver(signals.post_save, sender=AppUser)
-def handle_message_created(sender, instance, created, **kwargs):
-    if created:
-        last_user = AppUser.objects.last()
-        last_user_email = last_user.email
-        SESServiceAppUser().send_email(last_user_email)
-        print("Message send")
+# @receiver(signals.post_save, sender=AppUser)
+# def handle_message_created(sender, instance, created, **kwargs):
+#     if created:
+#         last_user = AppUser.objects.last()
+#         last_user_email = last_user.email
+#         SESServiceAppUser().send_email(last_user_email)
+#         print("Message send")

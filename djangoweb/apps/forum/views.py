@@ -49,12 +49,12 @@ class CategoryPage(ListPageBase):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(CategoryPage, self).get_context_data()
         context['joke'] = dad_jokes()
-        # context['cat_of_the_day'] = search_in_cat_api()
-        # context['cat_of_the_day1'] = search_in_cat_api()
-        # context['cat_of_the_day2'] = search_in_cat_api()
-        # context['cat_of_the_day3'] = search_in_cat_api()
-        # context['cat_of_the_day4'] = search_in_cat_api()
-        # context['cat_of_the_day5'] = search_in_cat_api()
+        context['cat_of_the_day'] = search_in_cat_api()
+        context['cat_of_the_day1'] = search_in_cat_api()
+        context['cat_of_the_day2'] = search_in_cat_api()
+        context['cat_of_the_day3'] = search_in_cat_api()
+        context['cat_of_the_day4'] = search_in_cat_api()
+        context['cat_of_the_day5'] = search_in_cat_api()
         context['full_name'] = self.user_name()
         context['user'] = self.request.user
         context['search_flag'] = False
@@ -67,8 +67,8 @@ class CategoryPage(ListPageBase):
     #     if user_groups.filter(name='admins'):
     #         return True
     #     return False
-    class Meta:
-        ordering = ['-id']
+    # class Meta:
+    #     ordering = ['-id']
 
 
 @method_decorator(user_passes_test(lambda u: u.is_superuser), name='dispatch')

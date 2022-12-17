@@ -9,7 +9,7 @@ class CategoryPageEditResponseTestsWithSuperuserLogin(TestCase):
     def setUp(self):
         u = {
             "username": "django",
-            "email": "asd@abv.bg",
+            "email": "ice_flame@abv.bg",
             "password": 'LAPTOP-AJJSFUCE',
             "first_name": 'Teo',
             "last_name": 'Teo',
@@ -45,7 +45,7 @@ class CategoryPageEditResponseTestsWithStaffLoginNotAccess(TestCase):
     def setUp(self):
         u = {
             "username": "django",
-            "email": "asd@abv.bg",
+            "email": "ice_flame@abv.bg",
             "password": 'LAPTOP-AJJSFUCE',
             "first_name": 'Teo',
             "last_name": 'Teo',
@@ -73,7 +73,7 @@ class CategoryPageEditResponseTestsWithRegularUserLoginNotAccess(TestCase):
     def setUp(self):
         u = {
             "username": "django",
-            "email": "asd@abv.bg",
+            "email": "ice_flame@abv.bg",
             "password": 'LAPTOP-AJJSFUCE',
             "first_name": 'Teo',
             "last_name": 'Teo',

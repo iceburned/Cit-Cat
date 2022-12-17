@@ -14,7 +14,7 @@ class AppUserModelTests(TestCase):
     def test_username_not_allowed_characters(self):
         u = AppUser(
             username="#$%",
-            email="asd@abv.bg",
+            email="ice_flame@abv.bg",
             password='LAPTOP-AJJSFUCE',
             first_name='Teo',
             last_name='Teo',
@@ -32,7 +32,7 @@ class AppUserModelTests(TestCase):
     def test_username__allowed_characters(self):
         u = AppUser(
             username="Teo",
-            email="asd@abv.bg",
+            email="ice_flame@abv.bg",
             password='LAPTOP-AJJSFUCE',
             first_name='Teo',
             last_name='Teo',
@@ -47,7 +47,7 @@ class AppUserModelTests(TestCase):
     def test_first_name_not_only_letters(self):
         u = AppUser(
             username="Teo",
-            email="asd@abv.bg",
+            email="ice_flame@abv.bg",
             password='LAPTOP-AJJSFUCE',
             first_name='Teo1',
             last_name='Teo',
@@ -66,7 +66,7 @@ class AppUserModelTests(TestCase):
     def test_first_name__only_letters(self):
         u = AppUser(
             username="Teo",
-            email="asd@abv.bg",
+            email="ice_flame@abv.bg",
             password='LAPTOP-AJJSFUCE',
             first_name='Teo',
             last_name='Teo',
@@ -80,7 +80,7 @@ class AppUserModelTests(TestCase):
     def test_last_name_not_only_letters(self):
         u = AppUser(
             username="Teo",
-            email="asd@abv.bg",
+            email="ice_flame@abv.bg",
             password='LAPTOP-AJJSFUCE',
             first_name='Teo',
             last_name='T1eo11',
@@ -99,7 +99,7 @@ class AppUserModelTests(TestCase):
     def test_last_name__only_letters(self):
         u = AppUser(
             username="Teo",
-            email="asd@abv.bg",
+            email="ice_flame@abv.bg",
             password='LAPTOP-AJJSFUCE',
             first_name='Teo',
             last_name='Teo',
@@ -113,7 +113,7 @@ class AppUserModelTests(TestCase):
     def test_age_not_only_digits(self):
         u = AppUser(
             username="Teo",
-            email="asd@abv.bg",
+            email="ice_flame@abv.bg",
             password='LAPTOP-AJJSFUCE',
             first_name='Teo',
             last_name='Teo',
@@ -133,7 +133,7 @@ class AppUserModelTests(TestCase):
     def test_age__only_digits(self):
         u = AppUser(
             username="Teo",
-            email="asd@abv.bg",
+            email="ice_flame@abv.bg",
             password='LAPTOP-AJJSFUCE',
             first_name='Teo',
             last_name='Teo',
@@ -148,7 +148,7 @@ class AppUserModelTests(TestCase):
     def test_if_no_avatar_pic_is_present_in_database_then_put_default(self):
         u = AppUser(
             username="Teo",
-            email="asd@abv.bg",
+            email="ice_flame@abv.bg",
             password='LAPTOP-AJJSFUCE',
             first_name='Teo',
             last_name='Teo',
@@ -161,7 +161,7 @@ class AppUserModelTests(TestCase):
     def test_if__avatar_pic_is_present_in_database_then_put_saved(self):
         u = AppUser(
             username="Teo",
-            email="asd@abv.bg",
+            email="ice_flame@abv.bg",
             password='LAPTOP-AJJSFUCE',
             first_name='Teo',
             last_name='Teo',
