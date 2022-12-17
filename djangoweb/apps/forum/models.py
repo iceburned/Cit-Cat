@@ -99,7 +99,6 @@ class ForumSubcategories(models.Model):
         null=True,
     )
 
-
     def count_topics(self):
         count_topics = ForumTopic.objects.filter(subcategory_id=self).count()
         return count_topics

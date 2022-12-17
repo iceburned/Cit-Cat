@@ -128,8 +128,8 @@ class SubcategoryPage(LoginRequiredMixin, ListPageBase):
             return True
         return False
 
-    class Meta:
-        ordering = ['-id']
+    # class Meta:
+    #     ordering = ['-id']
 
 
 @method_decorator(staff_member_required, name='dispatch')
