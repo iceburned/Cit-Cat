@@ -10,7 +10,6 @@ def get_response(url):
     req_data = Request(url, headers=hdr)
     if req_data:
         data = urlopen(req_data).read()
-        # print('----------downloaded cat image ------------')
         return data
     else:
         print("Error receiving data")

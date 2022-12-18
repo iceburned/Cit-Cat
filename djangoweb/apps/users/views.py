@@ -1,5 +1,4 @@
 from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import UserCreationForm, UsernameField
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import reverse_lazy
@@ -47,9 +46,3 @@ class AboutPage(generic.CreateView):
     form_class = AboutPageForm
     success_url = reverse_lazy('category')
 
-
-# def handler500(request, *args, **kwargs):
-#     template = loader.get_template('505.html')
-#
-#     response.status_code = 500
-#     return HttpResponse(template.render(request))

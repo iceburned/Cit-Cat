@@ -7,7 +7,6 @@ from django.views.generic import ListView, DetailView, UpdateView, CreateView, D
 from djangoweb.apps.forum.forms import TopicCreateForm, SubcategoryCreateForm, SubcategoryEditForm, \
     CategoryCreateForm, CategoryEditForm
 from djangoweb.apps.forum.models import ForumCategory, ForumSubcategories, ForumTopic
-from djangoweb.apps.users.models import CatInfo
 from djangoweb.apps.forum.tasks import search_in_cat_api
 from djangoweb.apps.utils.dad_jokes import main as dad_jokes
 from django.contrib.auth.decorators import user_passes_test
@@ -56,15 +55,7 @@ class CategoryPage(ListPageBase):
         context['full_name'] = self.user_name()
         context['user'] = self.request.user
         context['search_flag'] = False
-        # context['avatar'] = self.avatar()
         return context
-
-    # def group_privileges(self):
-    #     current_user = self.request.user
-    #     user_groups = current_user.groups
-    #     if user_groups.filter(name='admins'):
-    #         return True
-    #     return False
 
 
 @method_decorator(user_passes_test(lambda u: u.is_superuser), name='dispatch')
@@ -105,8 +96,6 @@ class SubcategoryPage(LoginRequiredMixin, ListPageBase):
         context['subcategory_pk'] = self.kwargs.get("pk")
         context['joke'] = dad_jokes()
         context['full_name'] = self.user_name()
-        # context['group_admin'] = self.group_privileges('admins')
-        # context['group_mods'] = self.group_privileges('mods')
         context['search_flag'] = True
         context['subcategory_flag'] = True
         return context
@@ -127,9 +116,6 @@ class SubcategoryPage(LoginRequiredMixin, ListPageBase):
         if user_groups.filter(name=value):
             return True
         return False
-
-    # class Meta:
-    #     ordering = ['-id']
 
 
 @method_decorator(staff_member_required, name='dispatch')
@@ -210,26 +196,9 @@ class TopicsPage(LoginRequiredMixin, ListPageBase):
         context['topics_ek'] = self.kwargs['ek']
         context['joke'] = dad_jokes()
         context['full_name'] = self.user_name()
-        # context['group_admin'] = self.group_privileges('admins')
-        # context['group_mods'] = self.group_privileges('mods')
         context['instance_user'] = self.request.user
         context['search_flag'] = True
-        # context['cat_owned'] = self.cat_owned()
         return context
-
-    # def cat_owned(self):
-    #     cat = self.request.user.catinfo_set.first()
-    #     if cat:
-    #         return cat
-    #     return 'No cat owned'
-
-
-    # def group_privileges(self, value):
-    #     current_user = self.request.user
-    #     user_groups = current_user.groups
-    #     if user_groups.filter(name=value):
-    #         return True
-    #     return False
 
 
 class EditTopicPage(LoginRequiredMixin, EditPageBase):
@@ -266,7 +235,6 @@ class CreateTopicPage(LoginRequiredMixin, CreatePageBase):
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
         context['subcategory'] = self.kwargs.get("pk")
-        # context['category_id'] = self.kwargs.get("pk")
         return context
 
     def get_success_url(self):
@@ -276,19 +244,10 @@ class CreateTopicPage(LoginRequiredMixin, CreatePageBase):
 class TopicPageDelete(LoginRequiredMixin, DeletePageBase):
     model = ForumTopic
     template_name = 'delete.html'
-    # context_object_name = 'topic_create_context'
     pk_url_kwarg = 'tk'
 
     def get_success_url(self):
         return reverse('topics', kwargs={'pk': self.kwargs['pk'], 'ek': self.kwargs['ek']})
-
-    # def get_context_data(self, **kwargs):
-    #     context = super(TopicPageDelete, self).get_context_data()
-    #     kwargs_path = self.request.resolver_match.captured_kwargs
-    #     context['category_pk'] = kwargs_path['pk']
-    #     context['subcategory_ek'] = kwargs_path['ek']
-    #     context['topics_tk'] = kwargs_path['tk']
-    #     return context
 
 
 class SearchResultView(LoginRequiredMixin, ListPageBase):

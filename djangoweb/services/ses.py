@@ -1,4 +1,4 @@
-import logging
+
 import boto3
 from decouple import config
 
@@ -16,7 +16,6 @@ class SESServiceAbout:
         email = 'ice_flame@abv.bg'
         subject = f"{last_object.name} with mail {last_object.email} ask admin from Cit-Chat"
         text = last_object.message
-        # logging.info('Starting email sending')
         response = self.client.send_email(
             Source='teodor.vulev@gmail.com',
             Destination={
@@ -40,10 +39,6 @@ class SESServiceAbout:
         print(response)
 
 
-# sender = SESService()
-# sender.send_email('ice_flame@abv.bg')
-
-
 class SESServiceAppUser:
     def __init__(self):
         self.client = boto3.client(
@@ -54,7 +49,7 @@ class SESServiceAppUser:
         )
 
     def send_email(self, email):
-        # logging.info('Starting email sending')
+
 
         response = self.client.send_email(
             Source='teodor.vulev@gmail.com',

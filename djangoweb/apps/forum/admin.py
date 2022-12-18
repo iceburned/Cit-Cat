@@ -7,17 +7,15 @@ from djangoweb.apps.forum.models import ForumCategory, ForumSubcategories, Forum
 class CategoryAdmin(admin.ModelAdmin):
     fields = ('title', 'description', 'slug', 'logo')
     list_display = ('title', 'description', 'slug')
-    # prepopulated_fields = {"slug": ("title",)}
 
 
 @admin.register(ForumSubcategories)
 class SubcategoryAdmin(admin.ModelAdmin):
     list_display = ('title', 'description', 'slug')
-    # prepopulated_fields = {"slug": ("title",)}
 
 
 @admin.register(ForumTopic)
 class PostAdmin(admin.ModelAdmin):
     list_display = ('title', 'content', 'slug')
-    # prepopulated_fields = {"slug": ("title",)}
+
 

@@ -7,9 +7,6 @@ from django.core import validators
 from django.db import models
 
 
-# User = get_user_model()
-
-
 class ChoicesEnumMixin:
     @classmethod
     def choices(cls):
@@ -110,11 +107,6 @@ class AppUser(AbstractUser):
         blank=True,
         null=True,
     )
-
-    # slug = models.SlugField(
-    #     unique=True,
-    #     editable=False,
-    # )
 
     def full_name(self):
         if self.first_name and self.last_name:

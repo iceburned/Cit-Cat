@@ -51,8 +51,6 @@ class SubcategoryEditForm(forms.ModelForm):
         model = ForumSubcategories
 
         fields = ('title', 'description')
-        # widgets = {
-        #     'category': forms.HiddenInput(),
-        # }
+
 
 
