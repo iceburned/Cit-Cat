@@ -23,3 +23,8 @@ Custom Error 404 and 500 pages.<br>
 <img src="https://github.com/iceburned/Cit-Cat/blob/master/static/media/404_example.jpg" alt="404" width="778" height="633" />
 <img src="https://github.com/iceburned/Cit-Cat/blob/master/static/media/500_example.jpg" alt="500" width="778" height="633" />
 
+
+NB: Because site has too much css and js, if something not render correctly try with command:<br>
+python manage.py runserver --insecure<br>
+also...there is no database, you can use default (sqlite3), but uncomment it from settings and run:
+python manage.py makemigrations and after that python manage.py migrate.
