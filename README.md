@@ -20,6 +20,6 @@ Retrieving text from API site for joke and change every time when index page is 
 
 Custom Error 404 and 500 pages.<br>
 
-<img src="https://github.com/iceburned/Cit-Cat/blob/master/static/media/404_example.jpg" alt="" title="" />
-<img src="https://github.com/iceburned/Cit-Cat/blob/master/static/media/500_example.jpg" alt="" title="" />
+<img src="https://github.com/iceburned/Cit-Cat/blob/master/static/media/404_example.jpg" alt="404" width="778" height="633" />
+<img src="https://github.com/iceburned/Cit-Cat/blob/master/static/media/500_example.jpg" alt="500" width="778" height="633" />
 
