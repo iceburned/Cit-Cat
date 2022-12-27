@@ -4,7 +4,8 @@ SoftUni Django project defence.
 
 This forum is for cat lovers and people with cat interests or problems. Here can to discuss for your favorite pet.
 
-<img src="https://drive.google.com/file/d/1xVgDIvDG2zR_ysESY0HYGdkRwZpnNW2s/view?usp=share_link" alt="" title="" />
+<img src="https://github.com/iceburned/Cit-Cat/blob/master/static/media/cats1.jpg" alt="" title="" />
+
 
 
 
