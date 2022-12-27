@@ -1,5 +1,5 @@
-# djangoweb - Forum project
-SoftUni Django project
+# Cit-Cat - Forum project
+SoftUni Django project defence.
 
 
 This forum is for cat lovers and people with cat interests or problems. Here can to discuss for your favorite pet.
