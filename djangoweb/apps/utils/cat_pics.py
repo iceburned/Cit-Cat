@@ -2,8 +2,6 @@ import asyncio
 import json
 from urllib.request import Request, urlopen
 
-import httpx
-
 
 def get_response(url):
     hdr = {'User-Agent': 'Mozilla/5.0'}

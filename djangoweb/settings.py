@@ -45,12 +45,6 @@ INSTALLED_APPS = [
     'djangoweb.apps.users',
     'djangoweb.apps.forum',
     'djangoweb.apps.breed',
-
-    # Third-party apps
-    'bootstrap5',
-    'rest_framework',
-    'widget_tweaks',
-    'django_celery_results',
 ]
 
 MIDDLEWARE = [
