@@ -1,6 +1,5 @@
 from django.urls import path
 
-
 from djangoweb.apps.forum.views import *
 from djangoweb.apps.utils.error_handler_500 import custom_handler500
 
@@ -19,8 +18,6 @@ urlpatterns = (
     path('sub/<int:pk>/search/', SearchResultView.as_view(), name="search"),
     path('sub/<int:pk>/topics/<int:ek>/search/', SearchResultViewTopics.as_view(), name="search_topic"),
 
-
 )
-
 
 handler500 = custom_handler500

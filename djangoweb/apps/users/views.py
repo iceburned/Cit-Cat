@@ -4,7 +4,6 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import reverse_lazy
 from django.views import generic
 
-
 from djangoweb.apps.users.forms import ProfileForm, AboutPageForm, SignUpBaseForm
 from djangoweb.apps.users.models import AboutData
 
@@ -45,4 +44,3 @@ class AboutPage(generic.CreateView):
     template_name = 'about_page.html'
     form_class = AboutPageForm
     success_url = reverse_lazy('category')
-

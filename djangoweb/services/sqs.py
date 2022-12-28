@@ -1,6 +1,6 @@
 import boto3
-from django.utils.datetime_safe import datetime
 from decouple import config
+from django.utils.datetime_safe import datetime
 
 
 class SQSService:
@@ -15,15 +15,15 @@ class SQSService:
 
     def send_message(self, email):
         self.client.send_message(
-    QueueUrl=self.url,
-    MessageBody=f'Sending mail to {email}',
-    DelaySeconds=0,
-    MessageAttributes={
-        'Email': {
-            'StringValue': email,
-            'DataType': 'String',
-        }
-    },
-    MessageDeduplicationId=str(datetime.utcnow().timestamp()),
-    MessageGroupId=str(datetime.utcnow().timestamp()),
+            QueueUrl=self.url,
+            MessageBody=f'Sending mail to {email}',
+            DelaySeconds=0,
+            MessageAttributes={
+                'Email': {
+                    'StringValue': email,
+                    'DataType': 'String',
+                }
+            },
+            MessageDeduplicationId=str(datetime.utcnow().timestamp()),
+            MessageGroupId=str(datetime.utcnow().timestamp()),
         )

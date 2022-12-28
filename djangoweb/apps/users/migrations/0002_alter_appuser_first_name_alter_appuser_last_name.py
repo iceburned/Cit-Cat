@@ -5,7 +5,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('users', '0001_initial'),
     ]
@@ -14,11 +13,15 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='appuser',
             name='first_name',
-            field=models.CharField(max_length=30, validators=[django.core.validators.MinLengthValidator(2), django.core.validators.RegexValidator('^[a-zA-z]+$', message='Ensure this value contains only letters.')]),
+            field=models.CharField(max_length=30, validators=[django.core.validators.MinLengthValidator(2),
+                                                              django.core.validators.RegexValidator('^[a-zA-z]+$',
+                                                                                                    message='Ensure this value contains only letters.')]),
         ),
         migrations.AlterField(
             model_name='appuser',
             name='last_name',
-            field=models.CharField(max_length=30, validators=[django.core.validators.MinLengthValidator(2), django.core.validators.RegexValidator('^[a-zA-z]+$', message='Ensure this value contains only letters.')]),
+            field=models.CharField(max_length=30, validators=[django.core.validators.MinLengthValidator(2),
+                                                              django.core.validators.RegexValidator('^[a-zA-z]+$',
+                                                                                                    message='Ensure this value contains only letters.')]),
         ),
     ]

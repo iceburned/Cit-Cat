@@ -1,9 +1,4 @@
 from PIL import Image
-from django.contrib.auth import get_user_model
-
-from django.http import HttpResponse
-from urllib.request import urlopen
-import urllib.request
 
 
 def resizer(img):
@@ -15,5 +10,3 @@ def resizer(img):
                 image.thumbnail((400, 400))
                 pass
         return image
-
-

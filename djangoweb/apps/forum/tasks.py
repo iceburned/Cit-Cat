@@ -1,9 +1,6 @@
-
 import logging
 
-
 from celery import shared_task
-
 
 from djangoweb.apps.utils.cat_pics import main_cat
 

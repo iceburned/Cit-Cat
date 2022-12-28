@@ -17,5 +17,3 @@ class SubcategoryAdmin(admin.ModelAdmin):
 @admin.register(ForumTopic)
 class PostAdmin(admin.ModelAdmin):
     list_display = ('title', 'content', 'slug')
-
-

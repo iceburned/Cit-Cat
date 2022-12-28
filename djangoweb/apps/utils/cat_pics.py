@@ -1,4 +1,3 @@
-import asyncio
 import json
 from urllib.request import Request, urlopen
 
@@ -26,5 +25,3 @@ def main_cat():
 
 if __name__ == '__main__':
     main_cat()
-
-

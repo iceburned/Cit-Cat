@@ -1,7 +1,5 @@
-
 from enum import Enum
 
-from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AbstractUser
 from django.core import validators
 from django.db import models
@@ -215,4 +213,3 @@ class CatInfo(models.Model):
         blank=True,
         null=True,
     )
-

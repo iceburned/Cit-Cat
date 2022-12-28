@@ -1,4 +1,3 @@
-
 import boto3
 from decouple import config
 
@@ -49,8 +48,6 @@ class SESServiceAppUser:
         )
 
     def send_email(self, email):
-
-
         response = self.client.send_email(
             Source='teodor.vulev@gmail.com',
             Destination={

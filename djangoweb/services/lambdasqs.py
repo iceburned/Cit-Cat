@@ -1,10 +1,7 @@
 import json
-
-import os
-import boto3
-import logging
-import time
 from typing import List
+
+import boto3
 
 CHARSET = "UTF-8"
 
@@ -22,10 +19,10 @@ class SESService:
 
         resp = self.client.send_email(
             Source="teodor.vulev@gmail.com",
-            Destination={"ToAddresses": receivers,},
+            Destination={"ToAddresses": receivers, },
             Message={
                 "Subject": {"Data": subject, "Charset": CHARSET},
-                "Body": {"Text": {"Data": body, "Charset": CHARSET},},
+                "Body": {"Text": {"Data": body, "Charset": CHARSET}, },
             },
         )
         print("Message sent ", resp)

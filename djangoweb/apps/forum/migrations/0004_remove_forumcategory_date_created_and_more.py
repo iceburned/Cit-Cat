@@ -4,7 +4,6 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('forum', '0003_alter_forumcategory_slug_and_more'),
     ]

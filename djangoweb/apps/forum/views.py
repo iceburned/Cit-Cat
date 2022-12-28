@@ -1,16 +1,16 @@
-
+from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.utils.decorators import method_decorator
 from django.db.models import Q
 from django.urls import reverse, reverse_lazy
+from django.utils.decorators import method_decorator
 from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView
+
 from djangoweb.apps.forum.forms import TopicCreateForm, SubcategoryCreateForm, SubcategoryEditForm, \
     CategoryCreateForm, CategoryEditForm
 from djangoweb.apps.forum.models import ForumCategory, ForumSubcategories, ForumTopic
 from djangoweb.apps.forum.tasks import search_in_cat_api
 from djangoweb.apps.utils.dad_jokes import main as dad_jokes
-from django.contrib.auth.decorators import user_passes_test
-from django.contrib.admin.views.decorators import staff_member_required
 
 
 class ListPageBase(ListView):

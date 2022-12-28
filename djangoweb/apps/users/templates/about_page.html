@@ -11,16 +11,16 @@
         <h1>Enjoy your stay!</h1>
         <div class="u-clearfix u-sheet u-sheet-1">
             <div class="u-form u-palette-3-light-3 u-radius-10 u-form-1">
-                <div  class="u-clearfix u-form-spacing-15 u-form-vertical u-inner-form"
-                      style="padding: 30px;">
+                <div class="u-clearfix u-form-spacing-15 u-form-vertical u-inner-form"
+                     style="padding: 30px;">
                     <h4 class="u-align-center u-form-group u-form-text u-text u-text-1"> Ask Administrator! </h4>
 
                     <form method="post">
-                    {{ form.as_p }}
-                    {% csrf_token %}
-                    <div>
-                        <button type="submit">Send</button>
-                    </div>
+                        {{ form.as_p }}
+                        {% csrf_token %}
+                        <div>
+                            <button type="submit">Send</button>
+                        </div>
                     </form>
 
                 </div>
